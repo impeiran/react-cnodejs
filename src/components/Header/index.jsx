@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Menu, Segment } from 'semantic-ui-react'
+import { Menu, Segment, Icon } from 'semantic-ui-react'
 import logo from '@/assets/cnodejs_light.svg'
 
 import './header.scss'
@@ -24,6 +24,7 @@ const Header = () => {
     <header>
       <div className="header-top">
         <img src={logo} alt="logo"/>
+        <Icon name="user" className="icon-user"></Icon>
       </div>
 
       <Segment inverted>

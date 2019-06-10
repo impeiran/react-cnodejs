@@ -14,10 +14,21 @@ header {
       transform: translate(-50%, -50%);
       width: 120px;
     }
+    .icon-user {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 1.6rem;
+    }
   }
 
   .ui.inverted.segment {
     margin: 0;
     padding: 0;
+  }
+
+  .ui.secondary.pointing.menu .item {
+    transition: color .3s ease, border-color .3s ease;
   }
 }
