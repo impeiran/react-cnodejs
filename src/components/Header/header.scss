@@ -1,0 +1,23 @@
+@import '@/styles/variable.scss';
+
+header {
+  background: $headerBg;
+
+  .header-top {
+    position: relative;
+    width: 100%;
+    height: 50px;
+    img {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      width: 120px;
+    }
+  }
+
+  .ui.inverted.segment {
+    margin: 0;
+    padding: 0;
+  }
+}
