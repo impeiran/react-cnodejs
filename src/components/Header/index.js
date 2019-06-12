@@ -1,21 +1,40 @@
 import React, { useState } from 'react'
+import { withRouter } from 'react-router-dom'
 import { createHashHistory } from 'history'
+import Utils from '@/utils/index.js'
 import { Menu, Segment, Icon } from 'semantic-ui-react'
-import logo from '@/assets/cnodejs_light.svg'
 
+import logo from '@/assets/cnodejs_light.svg'
 import './header.scss'
 
-const Header = () => {
+
+const Header = (props) => {
   const navList = [
-    { name: '全部', value: 'all', path: '/topic?tag=all' },
-    { name: '精华', value: 'good', path: '/topic?tag=good' },
-    { name: '分享', value: 'share', path: '/topic?tag=share' },
-    { name: '问答', value: 'ask', path: '/topic?tag=ask' },
-    { name: '招聘', value: 'job', path: '/topic?tag=job' },
+    { name: '全部', value: 'all', path: '/topic?tab=all' },
+    { name: '精华', value: 'good', path: '/topic?tab=good' },
+    { name: '分享', value: 'share', path: '/topic?tab=share' },
+    { name: '问答', value: 'ask', path: '/topic?tab=ask' },
+    { name: '招聘', value: 'job', path: '/topic?tab=job' },
     { name: '关于', value: 'about', path: '/about' }
   ]
+
+  const initRouteValue = (loc) => {
+    if (loc.pathname === '/topic') {
+      const query = Utils.searchToQuery(loc.search)
+      return query['tab']
+    } else {
+      for (let i = navList.length - 1 ; i > -1 ; i--) {
+        if (navList[i].path === loc.pathname) {
+          return navList[i].value
+        }
+      }
+    }
+    return ''
+  }
+
   const history = new createHashHistory()
-  const [ activeItem, setActiveItem ] = useState('all')
+  const { location } = props
+  const [ activeItem, setActiveItem ] = useState(initRouteValue(location))
 
   const selectNav = (item) => {
     if (item.value !== activeItem) {
@@ -51,4 +70,4 @@ const Header = () => {
   ) 
 }
 
-export default Header
+export default withRouter(Header)

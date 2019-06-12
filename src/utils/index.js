@@ -1,4 +1,4 @@
-export default class Utils {
+class Utils {
   searchToQuery (sText) {
     if (sText.indexOf('?') === -1) return ''
     let result = {}
@@ -10,3 +10,5 @@ export default class Utils {
     return result
   }
 }
+
+export default new Utils()
