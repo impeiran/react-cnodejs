@@ -9,6 +9,10 @@ class Utils {
     })
     return result
   }
+
+  timeFrom (date) {
+    
+  }
 }
 
 export default new Utils()

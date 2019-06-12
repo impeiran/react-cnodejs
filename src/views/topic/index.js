@@ -12,7 +12,7 @@ const Topic = (props) => {
   const limit = 20 
 
   const [list, setList] = useState([])
-  const [page, setPage] = useState(1)
+  const [page] = useState(1)
 
   useEffect(() => {
     page === 1 && setList([])

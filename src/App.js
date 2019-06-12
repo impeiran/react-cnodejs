@@ -15,7 +15,7 @@ function App() {
 
         <main>
           <Switch>
-            <Redirect from={'/'} to={'/topic?tag=all'} exact push></Redirect>
+            <Redirect from={'/'} to={'/topic?tab=all'} exact push></Redirect>
             <Route path={'/topic'} exact component={Topic}></Route>
             <Route path={'/about'} exact component={About}></Route>
             <Route component={NotFound}></Route>

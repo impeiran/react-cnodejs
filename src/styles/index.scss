@@ -1,17 +1,28 @@
 @import './variable.scss';
+@import './semantic-rewrite.scss';
 
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
-  color: #fff;
+  color: $fontColor;
   background-color: $bodyBg;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-h1, h2, h3, h4, h5, h6, ul, ol, li, div, section {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+ul,
+ol,
+li,
+div,
+section {
   margin: 0;
   padding: 0;
 }
@@ -25,6 +36,6 @@ a {
 }
 
 main {
-  margin-top: 100px;
+  margin-top: 102px;
   padding: 0 15px 15px;
 }

@@ -1,6 +1,6 @@
 import React from 'react'
-import { Label } from 'semantic-ui-react'
 import TopicLabel from './topicLabel'
+import { format } from 'timeago.js'
 
 import './topicCard.scss'
 
@@ -23,10 +23,17 @@ const TopicCard = (props) => {
       </div>
 
       <div className="card-body">
-        <Label as='a' image>
-          <img src={data.author.avatar_url} alt={data.author.loginname} />
-          {data.author.loginname}
-        </Label>
+        <div className="avatar-box">
+          <img src={data.author.avatar_url} alt="avatar"/>
+        </div>
+
+        <ul className="number-box">
+          <li>查看数：{data.visit_count}</li>
+          <li>回复数：{data.reply_count}</li>
+        </ul>
+
+        <div className="time-from"
+        >{ format(data.last_reply_at, 'zh_CN') }</div>
       </div>
     </div>
   )
