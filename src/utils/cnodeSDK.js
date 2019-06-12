@@ -16,7 +16,7 @@ class SDK {
     return this.axios.post(this.apiPrefix + url, data)
   }
 
-  getTopicsByTag (tab, page = 1, limit = 20) {
+  getTopicsByTab (tab, page = 1, limit = 20) {
     return this.get('/topics', {
       page: parseInt(page),
       limit: parseInt(limit),

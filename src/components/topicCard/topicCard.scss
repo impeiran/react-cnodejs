@@ -1,0 +1,17 @@
+@import '@/styles/mixin.scss';
+
+.topic-card-item {
+  margin-bottom: 15px;
+
+  .card-head {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+
+    h4 {
+      margin-left: 10px;
+      flex: 1;
+      @include ellipsis;
+    }
+  }
+}
