@@ -13,12 +13,14 @@ function App() {
       <HashRouter basename='/'>
         <Header />
 
-        <Switch>
-          <Redirect from={'/'} to={'/topic?tag=all'} exact component={Topic}></Redirect>
-          <Route path={'/topic'} exact component={Topic}></Route>
-          <Route path={'/about'} exact component={About}></Route>
-          <Route component={NotFound}></Route>
-        </Switch>
+        <main>
+          <Switch>
+            <Redirect from={'/'} to={'/topic?tag=all'} exact component={Topic}></Redirect>
+            <Route path={'/topic'} exact component={Topic}></Route>
+            <Route path={'/about'} exact component={About}></Route>
+            <Route component={NotFound}></Route>
+          </Switch>
+        </main>
         
       </HashRouter>
 

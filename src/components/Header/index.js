@@ -18,8 +18,10 @@ const Header = () => {
   const [ activeItem, setActiveItem ] = useState('all')
 
   const selectNav = (item) => {
-    setActiveItem(item.value)
-    history.push(item.path)
+    if (item.value !== activeItem) {
+      setActiveItem(item.value)
+      history.push(item.path)
+    }
   }
 
   return (
