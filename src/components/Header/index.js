@@ -19,7 +19,9 @@ const Header = (props) => {
   ]
 
   const initRouteValue = (loc) => {
-    if (loc.pathname === '/topic') {
+    if (loc.pathname === '/') {
+      return navList[0].value
+    } else if (loc.pathname === '/topic') {
       const query = Utils.searchToQuery(loc.search)
       return query['tab']
     } else {
