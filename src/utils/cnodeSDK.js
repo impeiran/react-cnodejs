@@ -6,13 +6,13 @@ class SDK {
     this.apiPrefix = 'https://cnodejs.org/api/v1'
   }
 
-  get (url, query = {}) {
+  get (url, query) {
     return this.axios.get(this.apiPrefix + url, {
       params: query
     })
   }
 
-  post (url, data = {}) {
+  post (url, data) {
     return this.axios.post(this.apiPrefix + url, data)
   }
 
