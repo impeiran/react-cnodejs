@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import { withRouter } from 'react-router'
+
 import TopicCard from '@/components/topicCard'
+import PullList from '@/components/pullList'
+
 import Utils from '@/utils/index.js'
 import cnodeSDK from '@/utils/cnodeSDK';
 
@@ -23,17 +26,20 @@ const Topic = (props) => {
   }, [page, tab])
 
   return (
-    <div>
-      {
-        list.map((item, index) => {
-          return (
-            <TopicCard
-              key={item.id}
-              data={item}
-            />
-          )
-        })
-      }
+    <div className="topic-list">
+      <PullList>
+        {
+          list.map((item, index) => {
+            return (
+              <TopicCard
+                key={item.id}
+                data={item}
+              />
+            )
+          })
+        }
+      </PullList>
+      
     </div>
   )
 }
