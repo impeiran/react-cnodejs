@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react'
-// import _func from 'lodash/function'
+import { useEventListener } from '@/hooks'
 
-// 上拉加载
-// 下拉刷新
 const PullList = props => {
 
   // const [timer, setTimer] = useState()
@@ -19,14 +17,7 @@ const PullList = props => {
     }, 100)
   }
 
-  useEffect(() => {
-    document.addEventListener('scroll', scrollHandler)
-
-    return () => {
-      console.log('remove')
-      document.removeEventListener('scroll', scrollHandler)
-    }
-  })
+  useEventListener('scroll', scrollHandler)
 
   return (
     <figure
