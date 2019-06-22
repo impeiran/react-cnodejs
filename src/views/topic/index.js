@@ -15,31 +15,50 @@ const Topic = (props) => {
   const limit = 20 
 
   const [list, setList] = useState([])
-  const [page] = useState(1)
+  const [page, setPage] = useState(1)
+  const [complete, setComplete] = useState(false)
+
+  const loadMore = () => {
+    setPage(page => page + 1)
+  }
 
   useEffect(() => {
-    page === 1 && setList([])
+    setPage(1)
+    setList([])
+    setComplete(false)
+  }, [tab])
+
+  useEffect(() => {
     cnodeSDK.getTopicsByTab(tab, page, limit).then(res => {
       const data = res.data.data
-      setList(data)
+      if (data.length < limit) {
+        setComplete(true)
+      }
+      setList(list => list.concat(data))
     })
   }, [page, tab])
 
   return (
     <div className="topic-list">
-      <PullList>
-        {
-          list.map((item, index) => {
-            return (
-              <TopicCard
-                key={item.id}
-                data={item}
-              />
-            )
-          })
-        }
+    {
+      list.length ?
+      <PullList
+        complete={complete}
+        toEndHandler={loadMore}
+      >
+      {
+        list.map( (item) => {
+          return (
+            <TopicCard
+              key={item.id}
+              data={item}
+            />
+          )
+        })
+      }
       </PullList>
-      
+      : null
+    }
     </div>
   )
 }

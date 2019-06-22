@@ -1,4 +1,4 @@
-import React, {useEffect, useRef} from 'react'
+import {useEffect, useRef} from 'react'
 
 export function useEventListener(eventName, handler, element = document){
     // Create a ref that stores handler
@@ -9,26 +9,26 @@ export function useEventListener(eventName, handler, element = document){
     // ... without us needing to pass it in effect deps array ...
     // ... and potentially cause effect to re-run every render.
     useEffect(() => {
-      savedHandler.current = handler;
+      savedHandler.current = handler
     }, [handler]);
   
     useEffect(
       () => {
         // Make sure element supports addEventListener
-        const isSupported = element && element.addEventListener;
-        if (!isSupported) return;
+        const isSupported = element && element.addEventListener
+        if (!isSupported) return
         
         // Create event listener that calls handler function stored in ref
-        const eventListener = event => savedHandler.current(event);
+        const eventListener = event => savedHandler.current(event)
         
         // Add event listener
-        element.addEventListener(eventName, eventListener);
+        element.addEventListener(eventName, eventListener)
         
         // Remove event listener on cleanup
         return () => {
-          element.removeEventListener(eventName, eventListener);
-        };
+          element.removeEventListener(eventName, eventListener)
+        }
       },
       [eventName, element] // Re-run if eventName or element changes
-    );
-};
+    )
+}
