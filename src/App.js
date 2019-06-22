@@ -4,6 +4,7 @@ import { HashRouter, Switch, Route, Redirect } from 'react-router-dom'
 import Header from '@/components/Header'
 import Topic from '@/views/topic'
 import About from '@/views/about'
+import Article from '@/views/article'
 import NotFound from '@/views/notFound'
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
             <Redirect from={'/'} to={'/topic?tab=all'} exact push></Redirect>
             <Route path={'/topic'} exact component={Topic}></Route>
             <Route path={'/about'} exact component={About}></Route>
+            <Route path={'/article'} exact component={Article}></Route>
             <Route component={NotFound}></Route>
           </Switch>
         </main>

@@ -54,18 +54,18 @@ const Header = (props) => {
 
       <Segment inverted>
         <Menu inverted pointing secondary>
-          {
-            navList.map((item, index) => {
-              return (
-                <Menu.Item 
-                  name={item.name}
-                  active={item.value === activeItem}
-                  key={index}
-                  onClick={() => selectNav(item)}
-                />
-              )
-            })
-          }
+        {
+          navList.map((item, index) => {
+            return (
+              <Menu.Item 
+                name={item.name}
+                active={item.value === activeItem}
+                key={index}
+                onClick={() => selectNav(item)}
+              />
+            )
+          })
+        }
         </Menu>
       </Segment>
     </header>

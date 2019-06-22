@@ -1,0 +1,32 @@
+.ske {
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+
+  .headline {
+    margin: 10px 0;
+    &.ske-item {
+      height: 15px;
+    }
+  }
+
+  .body {
+    display: flex;
+    align-items: center;
+  }
+
+  .pic {
+    margin-right: 10px;
+    width: 45px;
+    height: 45px;
+  }
+
+  ul {
+    flex: 1;
+    li {
+      height: 15px;
+      &:not(:last-child) {
+        margin-bottom: 10px;
+      }
+    }
+  }
+}

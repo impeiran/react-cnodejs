@@ -16,7 +16,7 @@ const TopicCard = (props) => {
   }
 
   return (
-    <div className="topic-card-item">
+    <div className="topic-card-item" onClick={(e) => props.onClick(data)}>
       <div className="card-head">
         <TopicLabel info={filteLabel(data)} />
         <h4>{data.title}</h4>
