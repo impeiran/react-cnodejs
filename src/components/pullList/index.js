@@ -23,6 +23,7 @@ const PullList = props => {
     timer.current = setTimeout(() => {
       const scrollTop = document.documentElement.scrollTop || window.scrollY
       const scrollHeight = document.documentElement.scrollHeight
+      
       if (scrollTop < lastPos) return
       setLastPos(scrollTop)
 

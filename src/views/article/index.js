@@ -48,7 +48,7 @@ const Article = props => {
               key={item.id}
             >
               <div className="reply-item-head">
-                <img className="avatar" src={item.author.avatar_url} />
+                <img className="avatar" src={item.author.avatar_url} alt="avatar" />
                 <ul className="reply-item-info">
                   <li>
                     { item.author.loginname }
