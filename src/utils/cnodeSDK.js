@@ -2,8 +2,9 @@ import axios from 'axios'
 
 class SDK {
   constructor () {
-    this.axios = axios
     this.apiPrefix = 'https://cnodejs.org/api/v1'
+
+    this.axios = axios
   }
 
   get (url, query) {

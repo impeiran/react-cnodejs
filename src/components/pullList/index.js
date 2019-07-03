@@ -11,14 +11,9 @@ const PullList = props => {
   const [lastPos, setLastPos] = useState(0)
   const timer = useRef()
 
-  const scrollHandler = useCallback(e => {
-    if (props.complete) {
-      return
-    }
-
-    if (timer.current) {
-      clearTimeout(timer.current)
-    }
+  const scrollHandler = useCallback( e => {
+    if (props.complete) return
+    if (timer.current) clearTimeout(timer.current)
 
     timer.current = setTimeout(() => {
       const scrollTop = document.documentElement.scrollTop || window.scrollY
@@ -41,7 +36,9 @@ const PullList = props => {
     <figure>
       { props.children }
       {
-        props.complete ? <div className="align-center">加载完毕</div> : <Loader active inline='centered' size="small">玩命加载中</Loader>
+        props.complete
+        ? <div className="align-center">加载完毕</div>
+        : <Loader active inline='centered' size="small">玩命加载中</Loader>
       }
     </figure>
   )

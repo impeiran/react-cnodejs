@@ -10,9 +10,7 @@ import cnodeSDK from '@/utils/cnodeSDK.js'
 import './article.scss'
 
 const Article = props => {
-
-  const { location } = props
-  const { id } = Utils.searchToQuery(location.search)
+  const { id } = Utils.searchToQuery(props.location.search)
 
   const [info, setInfo] = useState({})
   
@@ -21,7 +19,6 @@ const Article = props => {
     cnodeSDK.getTopicDetail(id).then(res => {
       setInfo(res.data.data)
       codePrettify.prettyPrint()
-      console.log(res.data.data)
     })
   }, [id])
 

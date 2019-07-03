@@ -4,7 +4,8 @@ import { createHashHistory } from 'history'
 
 import TopicCard from '@/components/topicCard'
 import PullList from '@/components/pullList'
-import Skeleton from '@/components/Skeleton'
+import { Loader } from 'semantic-ui-react'
+// import Skeleton from '@/components/Skeleton'
 
 import Utils from '@/utils/index.js'
 import cnodeSDK from '@/utils/cnodeSDK';
@@ -29,6 +30,7 @@ const Topic = (props) => {
     history.push(`/article?id=${item.id}`)
   }
 
+  // 分类变化 重置部分数据
   useEffect(() => {
     setPage(1)
     setList([])
@@ -36,6 +38,7 @@ const Topic = (props) => {
     window.scrollTo(0, 0)
   }, [tab])
 
+  // 当页数和分类变化时触发加载
   useEffect(() => {
     cnodeSDK.getTopicsByTab(tab, page, limit).then(res => {
       const data = res.data.data
@@ -49,25 +52,21 @@ const Topic = (props) => {
   return (
     <div className="topic-list">
     {
-      list.length ?
-      <PullList
-        complete={complete}
-        toEndHandler={loadMore}
-        
-      >
-      {
-        list.map( (item) => {
-          return (
-            <TopicCard
-              key={item.id}
-              data={item}
-              onClick={item => readArticle(item)}
-            />
-          )
-        })
-      }
-      </PullList>
-      : <Skeleton />
+      list.length 
+      ? <PullList complete={complete} toEndHandler={loadMore}>
+        {
+          list.map( (item) => {
+            return (
+              <TopicCard
+                key={item.id}
+                data={item}
+                onClick={item => readArticle(item)}
+              />
+            )
+          })
+        }
+        </PullList>
+      : <Loader active inline='centered' size="medium">玩命加载中</Loader>
     }
     </div>
   )
