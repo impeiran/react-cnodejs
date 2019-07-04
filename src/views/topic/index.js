@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import { withRouter } from 'react-router'
-import { createHashHistory } from 'history'
 
 import TopicCard from '@/components/topicCard'
 import PullList from '@/components/pullList'
@@ -14,10 +13,9 @@ import './topic.scss'
 
 const Topic = (props) => {
   const limit = 20 
-  const { location } = props
+  const { history, location } = props
   const { tab } = Utils.searchToQuery(location.search)
-  const history = new createHashHistory()
-
+  
   const [list, setList] = useState([])
   const [page, setPage] = useState(1)
   const [complete, setComplete] = useState(false)

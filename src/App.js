@@ -1,5 +1,5 @@
 import React from 'react'
-import { HashRouter, Switch, Route, Redirect } from 'react-router-dom'
+import { BrowserRouter , Switch, Route, Redirect } from 'react-router-dom'
 
 import Header from '@/components/Header'
 import Topic from '@/views/topic'
@@ -11,20 +11,20 @@ function App() {
   return (
     <div className="App">
 
-      <HashRouter basename='/'>
+      <BrowserRouter>
         <Header />
 
         <main>
           <Switch>
-            <Redirect from={'/'} to={'/topic?tab=all'} exact push></Redirect>
-            <Route path={'/topic'} exact component={Topic}></Route>
-            <Route path={'/about'} exact component={About}></Route>
-            <Route path={'/article'} exact component={Article}></Route>
+            <Redirect from={'/'} to={'/topic?tab=all'} exact></Redirect>
+            <Route path={'/topic'} component={Topic}></Route>
+            <Route path={'/about'} component={About}></Route>
+            <Route path={'/article'} component={Article}></Route>
             <Route component={NotFound}></Route>
           </Switch>
         </main>
         
-      </HashRouter>
+      </BrowserRouter >
 
     </div>
   );

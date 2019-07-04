@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import { withRouter } from 'react-router-dom'
-import { createHashHistory } from 'history'
 import Utils from '@/utils/index.js'
 import { Menu, Segment, Icon } from 'semantic-ui-react'
 
@@ -34,16 +33,16 @@ const Header = (props) => {
     return ''
   }
 
-  const history = new createHashHistory()
-  const { location } = props
+  const { history, location } = props
   const [ activeItem, setActiveItem ] = useState(initRouteValue(location))
 
   const selectNav = (item) => {
-    if (item.value !== activeItem) {
-      setActiveItem(item.value)
-      history.push(item.path)
-    }
+    item.value !== activeItem && history.push(item.path)
   }
+
+  history.listen((location) => {
+    setActiveItem(initRouteValue(location))
+  })
 
   return (
     <header>
