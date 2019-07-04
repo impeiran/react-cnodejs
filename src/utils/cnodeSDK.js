@@ -29,6 +29,10 @@ class SDK {
     const query = token ? { accesstoken: token } : {}
     return this.get('/topic/' + topicId, query)
   }
+
+  getUserDetail (loginname) {
+    return this.get('/user/' + loginname)
+  }
 }
 
 export default new SDK()

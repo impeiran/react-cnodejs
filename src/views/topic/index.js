@@ -15,17 +15,17 @@ const Topic = (props) => {
   const limit = 20 
   const { history, location } = props
   const { tab } = Utils.searchToQuery(location.search)
-  
+
   const [list, setList] = useState([])
   const [page, setPage] = useState(1)
   const [complete, setComplete] = useState(false)
 
   const loadMore = () => {
-    setPage(page => page + 1)
+    setPage(page => ++page)
   }
 
   const readArticle = item => {
-    history.push(`/article?id=${item.id}`)
+    history.push(`/article/${item.id}`)
   }
 
   // 分类变化 重置部分数据
@@ -53,7 +53,7 @@ const Topic = (props) => {
       list.length 
       ? <PullList complete={complete} toEndHandler={loadMore}>
         {
-          list.map( (item) => {
+          list.map(item => {
             return (
               <TopicCard
                 key={item.id}

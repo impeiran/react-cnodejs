@@ -3,13 +3,13 @@ import { withRouter } from 'react-router'
 import { format } from 'timeago.js'
 import codePrettify from 'code-prettify'
 
-import Utils from '@/utils'
 import cnodeSDK from '@/utils/cnodeSDK.js'
 
 import './article.scss'
 
 const Article = props => {
-  const { id } = Utils.searchToQuery(props.location.search)
+  const { match } = props
+  const { id } = match.params
 
   const [info, setInfo] = useState({})
   
