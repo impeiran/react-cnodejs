@@ -7,26 +7,29 @@ body {
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   color: $fontColor;
+  font-size: 12px;
   // background-color: $bodyBg;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  ul,
+  ol,
+  li,
+  div,
+  figure,
+  section {
+    margin: 0;
+    padding: 0;
+  }
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-ul,
-ol,
-li,
-div,
-figure,
-section {
-  margin: 0;
-  padding: 0;
-}
+
 
 ul li {
   list-style: none;
@@ -37,8 +40,7 @@ a {
 }
 
 main {
-  margin-top: 102px;
-  padding: 0 15px 15px;
+  padding: 102px 15px 15px;
 }
 
 .align-center {

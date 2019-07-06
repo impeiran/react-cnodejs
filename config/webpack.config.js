@@ -1,5 +1,4 @@
-
-
+const theme = require('../package.json').theme
 const fs = require('fs');
 const isWsl = require('is-wsl');
 const path = require('path');
@@ -352,8 +351,15 @@ module.exports = function(webpackEnv) {
                           ReactComponent: '@svgr/webpack?-svgo,+ref![path]',
                         },
                       },
-                    },
+                    }
                   ],
+                  [
+                    "import",
+                    {
+                      "libraryName": "antd-mobile",
+                      "style": true
+                    }
+                  ]
                 ],
                 // This is a feature of `babel-loader` for webpack (not Babel itself).
                 // It enables caching results in ./node_modules/.cache/babel-loader/
@@ -419,6 +425,15 @@ module.exports = function(webpackEnv) {
                 modules: true,
                 getLocalIdent: getCSSModuleLocalIdent,
               }),
+            },
+            {
+              test: /\.less$/,
+              use: [
+                  'style-loader',
+                  'css-loader',
+                  {loader: 'less-loader', options: {modifyVars: theme}},
+              ],
+              include: /node_modules/,
             },
             // Opt-in support for SASS (using .scss or .sass extensions).
             // By default we support SASS Modules with the
