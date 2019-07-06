@@ -3,7 +3,7 @@
   .article-head {
     display: flex;
     align-items: center;
-    margin: 4px 0 20px;
+    margin: 4px 0 10px;
 
     .avatar {
       margin-right: 8px;
@@ -38,6 +38,12 @@
   .reply-item {
     margin-bottom: 10px;
     border-bottom: 1px solid #ddd;
+
+    &.empty {
+      margin-top: 20px;
+      padding: 20px;
+      text-align: center;
+    }
   }
 
   .reply-item-head {

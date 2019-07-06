@@ -35,7 +35,13 @@ const Article = props => {
 
         <div className="markdown-body article-body" dangerouslySetInnerHTML={{__html: info.content}}></div>
 
-        { info.replies.length ? <h4>共{info.replies.length}条评论：</h4> : null }
+        { 
+          info.replies.length
+          ? <h4>共{info.replies.length}条评论：</h4>
+          : <div className="reply-item empty">
+              暂无评论
+            </div>
+        }
 
         {
           info.replies.map( (item, index) => {
