@@ -1,5 +1,6 @@
 import React from 'react'
 import TopicLabel from './topicLabel'
+import Avatar from '@/components/avatar'
 import { format } from 'timeago.js'
 
 import './topicCard.scss'
@@ -24,7 +25,11 @@ const TopicCard = (props) => {
 
       <div className="card-body">
         <div className="avatar-box">
-          <img src={data.author.avatar_url} alt="avatar"/>
+          <Avatar
+            target={data.author.loginname}
+            src={data.author.avatar_url}
+            size={44}
+          />
         </div>
 
         <ul className="number-box">

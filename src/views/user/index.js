@@ -19,7 +19,6 @@ const UserPage = props => {
 
       const data = res.data
       setUserInfo(data)
-      console.log(data)
     })
   }, [loginname])
 

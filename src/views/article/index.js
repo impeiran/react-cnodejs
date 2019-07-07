@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
-import { withRouter } from 'react-router'
+import Avatar from '@/components/avatar'
+import { withRouter, Link } from 'react-router-dom'
 import { format } from 'timeago.js'
 import codePrettify from 'code-prettify'
 
@@ -26,6 +27,11 @@ const Article = props => {
     ? <section className="article-page">
         <h1>{ info.title }</h1>
         <div className="article-head">
+          <Avatar
+            target={info.author.loginname}
+            size={28}
+            src={info.author.avatar_url}
+          />
           <ul className="sub-bar">
             <li>{info.author.loginname}</li>
             <li>发布于{ format(info.create_at, 'zh_CN')  }</li>
@@ -51,11 +57,17 @@ const Article = props => {
                 key={item.id}
               >
                 <div className="reply-item-head">
-                  <img className="avatar" src={item.author.avatar_url} alt="avatar" />
+                  <Avatar
+                    target={item.author.loginname}
+                    size={30}
+                    src={item.author.avatar_url}
+                  />
                   <ul className="reply-item-info">
                     <li>
-                      { item.author.loginname }
-                      { item.author.loginname === info.author.loginname ? ' (作者)' : '' }
+                      <Link to={'/user/' + item.author.loginname}>
+                        { item.author.loginname }
+                        { item.author.loginname === info.author.loginname ? ' (作者)' : '' }
+                      </Link>
                     </li>
                     <li>
                       {index + 1}楼
