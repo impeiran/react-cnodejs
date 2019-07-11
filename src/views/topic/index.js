@@ -10,7 +10,7 @@ import helper from '@/utils/cacheHelper'
 
 import './topic.scss'
 
-const cacheHelper = new helper (60000)
+const cacheHelper = new helper (60 * 1000)
 
 const Topic = (props) => {
   const limit = 20 
