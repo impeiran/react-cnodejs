@@ -32,3 +32,12 @@ export function useEventListener(eventName, handler, element = document){
       [eventName, element] // Re-run if eventName or element changes
     )
 }
+
+
+export function usePrevious (val) {
+  const ref = useRef();
+  useEffect(() => {
+    ref.current = val
+  })
+  return ref.current
+}

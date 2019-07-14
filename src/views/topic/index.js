@@ -5,6 +5,7 @@ import TopicCard from '@/components/topicCard'
 import PullList from '@/components/pullList'
 import { Loader } from 'semantic-ui-react'
 import Utils from '@/utils'
+import { usePrevious } from '@/hooks'
 import cnodeSDK from '@/utils/cnodeSDK'
 import helper from '@/utils/cacheHelper'
 
@@ -21,6 +22,7 @@ const Topic = (props) => {
   const [page, setPage] = useState(1)
   const [complete, setComplete] = useState(false)
   const lockFetch = useRef(false)
+  const prevTab = usePrevious(tab)
 
   const loadMore = () => {
     lockFetch.current = false
@@ -45,6 +47,8 @@ const Topic = (props) => {
 
   // 当页数和分类变化时触发（引入缓存）
   useEffect(() => {
+    if (prevTab !== tab && page !== 1) return
+
     const CACHE_KEY = 'topic_' + tab 
     if (page === 1 && cacheHelper.check(CACHE_KEY)) {
       const { list, page, complete } = cacheHelper.get(CACHE_KEY)
@@ -69,6 +73,7 @@ const Topic = (props) => {
         })
       })
     }
+    // eslint-disable-next-line
   }, [tab, page, complete])
 
   return (
