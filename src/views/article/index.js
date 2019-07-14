@@ -42,9 +42,10 @@ const Article = props => {
         setInfo(result)
       }
 
-      codePrettify.prettyPrint()
       setReplies(replies)
       setHasRendered(true)
+      
+      codePrettify.prettyPrint()
     })
   }, [id, storeArticle])
   
