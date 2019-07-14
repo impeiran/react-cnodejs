@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react'
+import {useDispatch} from 'redux-react-hook'
 import { withRouter } from 'react-router'
 
 import TopicCard from '@/components/topicCard'
@@ -21,15 +22,19 @@ const Topic = (props) => {
   const [list, setList] = useState([])
   const [page, setPage] = useState(1)
   const [complete, setComplete] = useState(false)
-  const lockFetch = useRef(false)
   const prevTab = usePrevious(tab)
+  const lockFetch = useRef(false)
+  const dispatch = useDispatch()
 
   const loadMore = () => {
     lockFetch.current = false
     setPage(page => page + 1)
   }
-
   const readArticle = item => {
+    dispatch({
+      type: 'SET_ARTICLE',
+      data: item
+    })
     history.push(`/article/${item.id}`)
   }
 
@@ -47,9 +52,12 @@ const Topic = (props) => {
 
   // 当页数和分类变化时触发（引入缓存）
   useEffect(() => {
+
+    // [ hack fix bug]
     if (prevTab !== tab && page !== 1) return
 
-    const CACHE_KEY = 'topic_' + tab 
+    const CACHE_KEY = 'topic_' + tab
+
     if (page === 1 && cacheHelper.check(CACHE_KEY)) {
       const { list, page, complete } = cacheHelper.get(CACHE_KEY)
       lockFetch.current = true
@@ -58,6 +66,7 @@ const Topic = (props) => {
       setComplete(complete)
     } else {
       if (complete || lockFetch.current) return
+
       cnodeSDK.getTopicsByTab(tab, page, limit).then(res => {
         const data = res.data.data
         if (data.length < limit) setComplete(true)
@@ -73,6 +82,7 @@ const Topic = (props) => {
         })
       })
     }
+
     // eslint-disable-next-line
   }, [tab, page, complete])
 

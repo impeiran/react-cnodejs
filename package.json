@@ -140,10 +140,8 @@
   },
   "devDependencies": {
     "babel-plugin-import": "^1.12.0",
-    "css-loader": "^2.1.1",
     "less": "^3.9.0",
-    "less-loader": "^5.0.0",
-    "style-loader": "^0.23.1"
+    "less-loader": "^5.0.0"
   },
   "theme": {
     "brand-primary": "rgb(128, 189, 1)",
