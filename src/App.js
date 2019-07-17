@@ -5,32 +5,40 @@ import { BrowserRouter , Switch, Route, Redirect } from 'react-router-dom'
 import store from '@/store'
 
 import Header from '@/components/Header'
+import SideBarContent from '@/components/sideBarContent'
 import Topic from '@/views/topic'
 import About from '@/views/about'
 import Article from '@/views/article'
 import User from '@/views/user'
 import NotFound from '@/views/notFound'
 
-function App() {
+import { Sidebar } from 'semantic-ui-react'
+
+const App = props => {
   return (
     <StoreContext.Provider value={store}>
-      <div className="App">
-        <BrowserRouter>
-          <Header />
+      <Sidebar.Pushable>
+        <Sidebar.Pusher>
+          <BrowserRouter>
+            <Header />
 
-          <main>
-            <Switch>
-              <Redirect from={'/'} to={'/topic?tab=all'} exact></Redirect>
-              <Route path={'/topic'} component={Topic}></Route>
-              <Route path={'/about'} component={About}></Route>
-              <Route path={'/article/:id'} component={Article}></Route>
-              <Route path={'/user/:loginname'} component={User}></Route>
-              <Route component={NotFound}></Route>
-            </Switch>
-          </main>
-          
-        </BrowserRouter>
-      </div>
+            <main>
+              <Switch>
+                <Redirect from={'/'} to={'/topic?tab=all'} exact></Redirect>
+                <Route path={'/topic'} component={Topic}></Route>
+                <Route path={'/about'} component={About}></Route>
+                <Route path={'/article/:id'} component={Article}></Route>
+                <Route path={'/user/:loginname'} component={User}></Route>
+                <Route component={NotFound}></Route>
+              </Switch>
+            </main>
+
+          </BrowserRouter>
+
+          <SideBarContent />
+
+        </Sidebar.Pusher>
+      </Sidebar.Pushable>
     </StoreContext.Provider>
   );
 }

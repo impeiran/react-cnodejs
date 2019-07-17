@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react'
-import {useDispatch} from 'redux-react-hook'
+import { useDispatch } from 'redux-react-hook'
 import { withRouter } from 'react-router'
 
 import TopicCard from '@/components/topicCard'

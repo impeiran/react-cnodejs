@@ -17,6 +17,12 @@ class SDK {
     return this.axios.post(this.apiPrefix + url, data)
   }
 
+  login (token = '') {
+    return this.post('/accesstoken', {
+      accesstoken: token
+    })
+  }
+
   getTopicsByTab (tab, page = 1, limit = 20) {
     return this.get('/topics', {
       page: parseInt(page),

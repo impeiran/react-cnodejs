@@ -29,7 +29,11 @@ const Article = props => {
       setInfo({
         ...storeArticle
       })
-      codePrettify.prettyPrint()
+
+      // nextTick to fix the code highlight, will be modified soon
+      setTimeout(() => {
+        codePrettify.prettyPrint()
+      }, 20)
     }
 
     cnodeSDK.getTopicDetail(id).then(res => {

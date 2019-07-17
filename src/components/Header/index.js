@@ -1,6 +1,10 @@
 import React, { useState } from 'react'
 import { withRouter } from 'react-router-dom'
+import cnodeSDK from '@/utils/cnodeSDK'
 import Utils from '@/utils/index.js'
+import { useDispatch, useMappedState } from 'redux-react-hook'
+
+import { Modal, Toast } from 'antd-mobile'
 import { Menu, Segment, Icon } from 'semantic-ui-react'
 
 import logo from '@/assets/cnodejs_light.svg'
@@ -33,8 +37,43 @@ const Header = (props) => {
     return ''
   }
 
+  // 点击user图标，触发登录判断
+  // 未登录 -> 弹框提示登录
+  // 已登录 -> 显示面板
+  const loginStatus = useMappedState(state => state.hasLogin)
+  const iconStyle = loginStatus
+    ? { color: 'rgb(128, 189, 1)' }
+    : { color: '#ddd' }
+  const checkIn = e => {
+    if (!loginStatus) {
+      const prompt = Modal.prompt('请进行登录', '测试账号：',  [
+        { text: '取消' },
+        {
+          text: '登录',
+          onPress: value => {
+            value = value.trim()
+            cnodeSDK.login(value).then(res => {
+              res = res.data
+              if (res.success) {
+                delete res.success
+                dispatch({ type: 'SET_LOGIN', data: true })
+                dispatch({ type: 'SET_USER_INFO', data: res })
+                Toast.info('登录成功！')
+              }
+              prompt.close()
+            })
+          }
+        },
+      ], 'default', null, ['access_token'])
+    } else {
+      dispatch({ type: 'OPEN_SIDER', data: true })
+    }
+  }
+
+  // 导航路由切换逻辑
   const { history, location } = props
   const [ activeItem, setActiveItem ] = useState(initRouteValue(location))
+  const dispatch = useDispatch()
 
   const selectNav = (item) => {
     item.value !== activeItem && history.push(item.path)
@@ -48,7 +87,7 @@ const Header = (props) => {
     <header>
       <div className="header-top">
         <img src={logo} alt="logo"/>
-        <Icon name="user" className="icon-user"></Icon>
+        <Icon name="user" className="icon-user" style={ iconStyle } onClick={ checkIn }></Icon>
       </div>
 
       <Segment inverted>
