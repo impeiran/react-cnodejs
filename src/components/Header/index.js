@@ -1,8 +1,10 @@
 import React, { useState } from 'react'
 import { withRouter } from 'react-router-dom'
+import { useDispatch, useMappedState } from 'redux-react-hook'
+
 import cnodeSDK from '@/utils/cnodeSDK'
 import Utils from '@/utils/index.js'
-import { useDispatch, useMappedState } from 'redux-react-hook'
+import cacheHelper from '@/utils/cacheHelper'
 
 import { Modal, Toast } from 'antd-mobile'
 import { Menu, Segment, Icon } from 'semantic-ui-react'
@@ -10,6 +12,9 @@ import { Menu, Segment, Icon } from 'semantic-ui-react'
 import logo from '@/assets/cnodejs_light.svg'
 import './header.scss'
 
+const TOKEN_STORE_KEY = 'user_token'
+const TOKEN_STORE_EXPIRE = 3 * 24 * 60 * 60 * 1000
+const tokenCacheHelper = new cacheHelper({ expire: TOKEN_STORE_EXPIRE })
 
 const Header = (props) => {
   const navList = [
@@ -46,6 +51,7 @@ const Header = (props) => {
     : { color: '#ddd' }
   const checkIn = e => {
     if (!loginStatus) {
+      const hisToken = tokenCacheHelper.get(TOKEN_STORE_KEY) || ''
       const prompt = Modal.prompt('请进行登录', '测试账号：',  [
         { text: '取消' },
         {
@@ -58,13 +64,14 @@ const Header = (props) => {
                 delete res.success
                 dispatch({ type: 'SET_LOGIN', data: true })
                 dispatch({ type: 'SET_USER_INFO', data: res })
-                Toast.info('登录成功！')
+                tokenCacheHelper.set(TOKEN_STORE_KEY, value)
+                Toast.success('登录成功！', 1)
               }
               prompt.close()
             })
           }
         },
-      ], 'default', null, ['access_token'])
+      ], 'default', hisToken, ['access_token'])
     } else {
       dispatch({ type: 'OPEN_SIDER', data: true })
     }

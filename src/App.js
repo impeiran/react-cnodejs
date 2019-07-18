@@ -10,6 +10,7 @@ import Topic from '@/views/topic'
 import About from '@/views/about'
 import Article from '@/views/article'
 import User from '@/views/user'
+import Setting from '@/views/setting'
 import NotFound from '@/views/notFound'
 
 import { Sidebar } from 'semantic-ui-react'
@@ -17,9 +18,9 @@ import { Sidebar } from 'semantic-ui-react'
 const App = props => {
   return (
     <StoreContext.Provider value={store}>
-      <Sidebar.Pushable>
-        <Sidebar.Pusher>
-          <BrowserRouter>
+      <BrowserRouter>
+        <Sidebar.Pushable>
+          <Sidebar.Pusher>
             <Header />
 
             <main>
@@ -29,16 +30,15 @@ const App = props => {
                 <Route path={'/about'} component={About}></Route>
                 <Route path={'/article/:id'} component={Article}></Route>
                 <Route path={'/user/:loginname'} component={User}></Route>
+                <Route path={'/setting'} component={Setting}></Route>
                 <Route component={NotFound}></Route>
               </Switch>
             </main>
+            <SideBarContent />
 
-          </BrowserRouter>
-
-          <SideBarContent />
-
-        </Sidebar.Pusher>
-      </Sidebar.Pushable>
+          </Sidebar.Pusher>
+        </Sidebar.Pushable>
+      </BrowserRouter>
     </StoreContext.Provider>
   );
 }

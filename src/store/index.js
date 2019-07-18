@@ -8,17 +8,25 @@ const initState = {
   article: {}
 }
 
+const lockScroll = flag => {
+  document.body.style.overflow = flag
+    ? 'hidden'
+    : 'visible' 
+}
+
 const reducer = (state = initState, action) => {
   state = {...state}
+
 
   switch (action.type) {
     case 'OPEN_SIDER':
       state.openSider = action.data
+      lockScroll(state.openSider)
       break
     
     case 'SET_LOGIN':
-        state.hasLogin = action.data
-        break
+      state.hasLogin = action.data
+      break
 
     case 'SET_USER_INFO':
       state.userInfo = action.data

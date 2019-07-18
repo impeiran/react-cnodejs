@@ -44,4 +44,9 @@ helper.prototype.set = function (key, data) {
   return true
 }
 
+helper.prototype.clear = function () {
+  this.LS.clear()
+  return true
+}
+
 export default helper
