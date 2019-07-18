@@ -1,38 +1,23 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+#### react-cnodejs
 
-## Available Scripts
+基于react全家桶复刻CNode社区的WebApp，使用**create-react-app**脚手架搭建，糅合semantic和antd-mobile做UI搭建，后续会继续改进
 
-In the project directory, you can run:
+特色：
 
-### `npm start`
+* 拥抱新特性，使用**React 16.8 Hooks** API全面编写组件，并封装多个基础Hook
+* 自行实现常见交互，包括无限滚动加载等
+* 提升用户体验，列表切换引入缓存，文章详情页预加载，秒刷文章
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+#### Todo
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+- [x] 用户登录模块
+- [x] 无限滚动
+- [x] 列表缓存
+- [x] 文章预加载
+- [ ] 列表动画
+- [ ] 文章图片放大预览
+- [ ] 加载失败时提供重新加载方案
 
-### `npm test`
+#### 项目预览
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+![](http://img.impeiran.com/cnode_qrcode.png)
