@@ -1,17 +1,28 @@
 import { createStore } from 'redux';
 
+const BODY = document.body || document.getElementsByTagName('body')[0]
+
+const bodyStopScroll = (e) => {
+  e.stopPropagation()
+  e.preventDefault()
+}
+
+const lockScroll = flag => {
+  if (flag) {
+    BODY.style.overflow = 'hidden'
+    document.addEventListener('touchmove', bodyStopScroll, { passive: false })
+  } else {
+    BODY.style.overflow = 'visible'
+    document.removeEventListener('touchmove', bodyStopScroll, { passive: false })
+  }
+}
+
 const initState = {
   hasLogin: false,
   openSider: false,
 
   userInfo: {},
   article: {}
-}
-
-const lockScroll = flag => {
-  document.body.style.overflow = flag
-    ? 'hidden'
-    : 'visible' 
 }
 
 const reducer = (state = initState, action) => {
