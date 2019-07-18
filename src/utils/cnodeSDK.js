@@ -1,4 +1,6 @@
 import axios from 'axios'
+
+import store from '@/store'
 import { Toast } from 'antd-mobile'
 
 class SDK {
@@ -43,9 +45,39 @@ class SDK {
   }
 
   // 获取话题详情（文章）
-  getTopicDetail (topicId, token) {
-    const query = token ? { accesstoken: token } : {}
+  getTopicDetail (topicId) {
+    let { hasLogin, userInfo: { token } } = store.getState()
+    let query = hasLogin ? { accesstoken: token } : {}
     return this.get('/topic/' + topicId, query)
+  }
+
+  // 收藏主题
+  collectTopic (topicId) {
+    let query = { topic_id: topicId }
+    let { hasLogin, userInfo: { token } } = store.getState()
+    
+    if (hasLogin) {
+      query.accesstoken = token
+    }
+
+    return this.post('/topic_collect/collect', query)
+  }
+
+  // 取消收藏主题
+  deCollectTopic (topicId) {
+    let query = { topic_id: topicId }
+    let { hasLogin, userInfo: { token } } = store.getState()
+
+    if (hasLogin) {
+      query.accesstoken = token
+    }
+
+    return this.post('/topic_collect/de_collect', query)
+  }
+
+  // 用户所收藏的主题
+  getTopicCollect (loginname = '') {
+    return this.get('/topic_collect/' + loginname)
   }
 
   // 用户详情

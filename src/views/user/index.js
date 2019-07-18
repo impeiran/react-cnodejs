@@ -10,17 +10,27 @@ import './user.scss'
 
 const UserPage = props => {
   const { loginname } = props.match.params
+
+  const [initCollect, setInitCollect] = useState(false)
   const [userInfo, setUserInfo] = useState({})
+  const [collectList, setCollectList] = useState([])
 
   useEffect(() => {
     cnodeSDK.getUserDetail(loginname).then(res => {
       res = res.data
       if (!res.success) return
+      setUserInfo(res.data)
+    })
 
-      const data = res.data
-      setUserInfo(data)
+    cnodeSDK.getTopicCollect(loginname).then(res => {
+      res = res.data
+      if (!res.success) return
+      setCollectList(res.data)
+      setInitCollect(true)
     })
   }, [loginname])
+
+  const initUserInfo = !!Object.keys(userInfo).length
 
   return (
     Object.keys(userInfo).length
@@ -42,9 +52,20 @@ const UserPage = props => {
             <InfoBlock key={index} {...item} />
           ))
         }
+
+        {
+          initCollect
+          ? <InfoBlock headline="收藏话题" list={collectList} />
+          : null
+        }
+
+        {
+          initUserInfo && initCollect
+          ? null
+          : <Loader active inline='centered' size="medium">玩命加载中</Loader>
+        }
       </section>
-      : <Loader active inline='centered' size="medium">玩命加载中</Loader>
-    
+    : null
   )
 }
 

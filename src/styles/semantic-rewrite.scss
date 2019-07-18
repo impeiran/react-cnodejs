@@ -20,3 +20,11 @@
 .ui.secondary.inverted.pointing.menu .active.item {
   border-color: rgb(128, 189, 1);
 }
+
+.ui.green.button, .ui.green.buttons .button {
+  background: rgb(128, 189, 1);
+}
+
+.ui.green.button:hover, .ui.green.buttons .button:hover {
+  background-color: rgb(128, 189, 1);
+}

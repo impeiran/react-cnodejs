@@ -1,21 +1,5 @@
-import { createStore } from 'redux';
-
-const BODY = document.body || document.getElementsByTagName('body')[0]
-
-const bodyStopScroll = (e) => {
-  e.stopPropagation()
-  e.preventDefault()
-}
-
-const lockScroll = flag => {
-  if (flag) {
-    BODY.style.overflow = 'hidden'
-    document.addEventListener('touchmove', bodyStopScroll, { passive: false })
-  } else {
-    BODY.style.overflow = 'visible'
-    document.removeEventListener('touchmove', bodyStopScroll, { passive: false })
-  }
-}
+import { createStore } from 'redux'
+import utils from '@/utils'
 
 const initState = {
   hasLogin: false,
@@ -28,11 +12,10 @@ const initState = {
 const reducer = (state = initState, action) => {
   state = {...state}
 
-
   switch (action.type) {
     case 'OPEN_SIDER':
       state.openSider = action.data
-      lockScroll(state.openSider)
+      utils.lockScroll(state.openSider)
       break
     
     case 'SET_LOGIN':

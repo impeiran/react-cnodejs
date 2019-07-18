@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react'
 import { withRouter, Link } from 'react-router-dom'
 import { useMappedState } from 'redux-react-hook'
 
-import { Loader } from 'semantic-ui-react'
+import { Button, Loader } from 'semantic-ui-react'
+import { Toast } from 'antd-mobile'
 import Avatar from '@/components/avatar'
 import { format } from 'timeago.js'
 import codePrettify from 'code-prettify'
@@ -18,7 +19,32 @@ const Article = props => {
   const [info, setInfo] = useState({})
   const [replies, setReplies] = useState([])
   const [hasRendered, setHasRendered] = useState(false)
+
   const storeArticle = useMappedState(state => state.article) || {}
+  const loginStatus = useMappedState(state => state.hasLogin)
+
+  const goCollect = async status => {
+    if (!loginStatus) {
+      Toast.fail('请点击右上角用户图标进行登录！', 1)
+      return
+    }
+
+    let result
+    if (status) {
+      result = await cnodeSDK.deCollectTopic(id)
+    } else {
+      result = await cnodeSDK.collectTopic(id)
+    }
+
+    if (result.data.success) {
+      setInfo({
+        ...info,
+        is_collect: !status
+      })
+    } else {
+      Toast.fail('操作失败', 1)
+    }
+  }
   
   useEffect(() => {
     window.scrollTo(0, 0)
@@ -42,10 +68,7 @@ const Article = props => {
 
       delete result.replies
       
-      if (!hasStoreInfo) {
-        setInfo(result)
-      }
-
+      setInfo(result)
       setReplies(replies)
       setHasRendered(true)
       
@@ -53,6 +76,7 @@ const Article = props => {
     })
   }, [id, storeArticle])
   
+  // 渲染评论
   const renderReplies = () => {
     if (!hasRendered) return (
       <Loader active inline='centered' size="medium">玩命加载中</Loader>
@@ -88,9 +112,9 @@ const Article = props => {
                       </Link>
                     </li>
                     <li>
-                      {index + 1}楼
+                      { index + 1 }楼
                       &nbsp;&nbsp;&nbsp;
-                      {format(info.create_at, 'zh_CN')}
+                      { format(info.create_at, 'zh_CN') }
                     </li>
                   </ul>
                 </div>
@@ -114,11 +138,20 @@ const Article = props => {
             size={28}
             src={info.author.avatar_url}
           />
+
           <ul className="sub-bar">
             <li>{info.author.loginname}</li>
             <li>发布于{ format(info.create_at, 'zh_CN')  }</li>
             <li>{ info.visit_count }次浏览</li>
           </ul>
+
+          <Button
+            size="mini"
+            loading={!hasRendered}
+            color={ hasRendered && info.is_collect ? 'teal' : 'green'}
+            onClick={ e => goCollect(info.is_collect) }
+          >{ info.is_collect ? '已收藏' : '+ 收藏'}</Button>
+
         </div>
 
         <div className="markdown-body article-body" dangerouslySetInnerHTML={{__html: info.content}}></div>

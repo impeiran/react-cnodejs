@@ -1,3 +1,10 @@
+const BODY = document.body || document.getElementsByTagName('body')[0]
+
+const bodyStopScroll = (e) => {
+  e.stopPropagation()
+  e.preventDefault()
+}
+
 class Utils {
   searchToQuery (sText) {
     if (sText.indexOf('?') === -1) return ''
@@ -10,8 +17,14 @@ class Utils {
     return result
   }
 
-  timeFrom (date) {
-    
+  lockScroll (flag) {
+    if (flag) {
+      BODY.style.overflow = 'hidden'
+      document.addEventListener('touchmove', bodyStopScroll, { passive: false })
+    } else {
+      BODY.style.overflow = 'visible'
+      document.removeEventListener('touchmove', bodyStopScroll, { passive: false })
+    }
   }
 }
 

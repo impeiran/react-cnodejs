@@ -63,7 +63,7 @@ const Header = (props) => {
               if (res.success) {
                 delete res.success
                 dispatch({ type: 'SET_LOGIN', data: true })
-                dispatch({ type: 'SET_USER_INFO', data: res })
+                dispatch({ type: 'SET_USER_INFO', data: {...res, token: value} })
                 tokenCacheHelper.set(TOKEN_STORE_KEY, value)
                 Toast.success('登录成功！', 1)
               }
