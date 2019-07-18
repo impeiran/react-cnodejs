@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { withRouter, Link } from 'react-router-dom'
 import { useMappedState } from 'redux-react-hook'
 
-import { Button, Loader } from 'semantic-ui-react'
+import { Button, Icon, Loader } from 'semantic-ui-react'
 import { Toast } from 'antd-mobile'
 import Avatar from '@/components/avatar'
 import { format } from 'timeago.js'
@@ -117,6 +117,11 @@ const Article = props => {
                       { format(info.create_at, 'zh_CN') }
                     </li>
                   </ul>
+
+                  <div>
+                    <Icon name={ item.is_uped ? 'thumbs up' : 'thumbs up outline' }/>
+                    { item.ups.length }
+                  </div>
                 </div>
     
                 <div className="markdown-body reply-item-body" dangerouslySetInnerHTML={{__html: item.content}}></div>
