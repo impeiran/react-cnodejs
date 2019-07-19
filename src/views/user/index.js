@@ -16,18 +16,25 @@ const UserPage = props => {
   const [collectList, setCollectList] = useState([])
 
   useEffect(() => {
-    cnodeSDK.getUserDetail(loginname).then(res => {
+    let detailRequest = cnodeSDK.getUserDetail(loginname)
+    detailRequest.then(res => {
       res = res.data
       if (!res.success) return
       setUserInfo(res.data)
     })
 
-    cnodeSDK.getTopicCollect(loginname).then(res => {
+    let collectRequest = cnodeSDK.getTopicCollect(loginname)
+    collectRequest.then(res => {
       res = res.data
       if (!res.success) return
       setCollectList(res.data)
       setInitCollect(true)
     })
+
+    return () => {
+      detailRequest = null
+      collectRequest = null
+    }
   }, [loginname])
 
   const initUserInfo = !!Object.keys(userInfo).length

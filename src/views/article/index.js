@@ -62,7 +62,9 @@ const Article = props => {
       }, 20)
     }
 
-    cnodeSDK.getTopicDetail(id).then(res => {
+    // 存储并清除unmount之后的request
+    let request = cnodeSDK.getTopicDetail(id)
+    request.then(res => {
       const result = res.data.data
       const replies = result.replies.slice(0)
 
@@ -74,6 +76,10 @@ const Article = props => {
       
       codePrettify.prettyPrint()
     })
+
+    return () => {
+      request = null
+    }
   }, [id, storeArticle])
   
   // 渲染评论
@@ -162,6 +168,7 @@ const Article = props => {
         <div className="markdown-body article-body" dangerouslySetInnerHTML={{__html: info.content}}></div>
 
         { renderReplies() }
+
       </section>
     : <Loader active inline='centered' size="medium">玩命加载中</Loader>
   )

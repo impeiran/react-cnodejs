@@ -53,6 +53,8 @@ const Topic = (props) => {
   // 当页数和分类变化时触发（引入缓存）
   useEffect(() => {
 
+    let request
+
     // [ hack fix bug]
     if (prevTab !== tab && page !== 1) return
 
@@ -67,7 +69,8 @@ const Topic = (props) => {
     } else {
       if (complete || lockFetch.current) return
 
-      cnodeSDK.getTopicsByTab(tab, page, limit).then(res => {
+      request = cnodeSDK.getTopicsByTab(tab, page, limit)
+      request.then(res => {
         const data = res.data.data
         if (data.length < limit) setComplete(true)
 
@@ -81,6 +84,10 @@ const Topic = (props) => {
           return newList
         })
       })
+    }
+
+    return () => {
+      request = null
     }
 
     // eslint-disable-next-line
