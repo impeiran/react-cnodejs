@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { withRouter } from 'react-router-dom'
 import { useDispatch, useMappedState } from 'redux-react-hook'
+import actionCreator from '@/store/actionCreator'
 
 import cnodeSDK from '@/utils/cnodeSDK'
 import Utils from '@/utils/index.js'
@@ -62,8 +63,8 @@ const Header = (props) => {
               res = res.data
               if (res.success) {
                 delete res.success
-                dispatch({ type: 'SET_LOGIN', data: true })
-                dispatch({ type: 'SET_USER_INFO', data: {...res, token: value} })
+                dispatch(actionCreator.setLogin(true))
+                dispatch(actionCreator.setUserInfo({...res, token: value}))
                 tokenCacheHelper.set(TOKEN_STORE_KEY, value)
                 Toast.success('登录成功！', 1)
               }
@@ -73,7 +74,7 @@ const Header = (props) => {
         },
       ], 'default', hisToken, ['access_token'])
     } else {
-      dispatch({ type: 'OPEN_SIDER', data: true })
+      dispatch(actionCreator.openSider(true))
     }
   }
 

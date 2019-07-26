@@ -2,6 +2,7 @@ import React from 'react'
 import { withRouter } from 'react-router-dom'
 import { useMappedState } from 'redux-react-hook'
 import { useDispatch } from 'redux-react-hook'
+import actionCreator from '@/store/actionCreator'
 
 import cacheHelper from '@/utils/cacheHelper'
 
@@ -19,7 +20,8 @@ const SideBarContent = props => {
   const dispatch = useDispatch()
 
   const closeSider = () => {
-    dispatch({ type: 'OPEN_SIDER', data: false })
+    const action = actionCreator.openSider(false)
+    dispatch(action)
   }
 
   const goUserCenter = () => {
@@ -47,8 +49,8 @@ const SideBarContent = props => {
         text: '确定',
         onPress: value => {
           closeSider()
-          dispatch({ type: 'SET_USER_INFO', data: {} })
-          dispatch({ type: 'SET_LOGIN', data: false })
+          dispatch(actionCreator.setLogin(false))
+          dispatch(actionCreator.setUserInfo({}))
         }
       },
     ])

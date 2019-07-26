@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { useDispatch } from 'redux-react-hook'
+import actionCreator from '@/store/actionCreator'
 import { withRouter } from 'react-router'
 
 import TopicCard from '@/components/topicCard'
@@ -31,10 +32,7 @@ const Topic = (props) => {
     setPage(page => page + 1)
   }
   const readArticle = item => {
-    dispatch({
-      type: 'SET_ARTICLE',
-      data: item
-    })
+    dispatch(actionCreator.setArticle(item))
     history.push(`/article/${item.id}`)
   }
 
