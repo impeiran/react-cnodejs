@@ -22,7 +22,7 @@ const Article = props => {
   const [hasRendered, setHasRendered] = useState(false)
 
   const [previewImgs, setPreviewImgs] = useState([])
-  const [previewIndex, setPreviewIndex] = useState(false)
+  const [previewIndex, setPreviewIndex] = useState(-1)
   const [showPreview, setShowPreview] = useState(false)
 
   const storeArticle = useMappedState(state => state.article) || {}
@@ -65,6 +65,7 @@ const Article = props => {
         })
         dom.addEventListener('click', e => {
           e.stopPropagation()
+          console.log(idx)
           setPreviewIndex(idx)
           setShowPreview(true)
         })
@@ -199,7 +200,7 @@ const Article = props => {
         <ModalGateway>
         {showPreview ? (
           <Modal onClose={() => setShowPreview(false)}>
-            <Carousel views={previewImgs} currentIndexNumber={previewIndex} />
+            <Carousel views={previewImgs} currentIndex={previewIndex} />
           </Modal>
         ) : null}
         </ModalGateway>
