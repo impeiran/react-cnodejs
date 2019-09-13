@@ -1,11 +1,12 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback, useRef } from 'react'
 import { withRouter, Link } from 'react-router-dom'
 import { useMappedState } from 'redux-react-hook'
 
 import { Button, Icon, Loader } from 'semantic-ui-react'
 import { Toast } from 'antd-mobile'
-import Avatar from '@/components/avatar'
+import Carousel, { Modal, ModalGateway } from 'react-images'
 import { format } from 'timeago.js'
+import Avatar from '@/components/avatar'
 import codePrettify from 'code-prettify'
 
 import cnodeSDK from '@/utils/cnodeSDK.js'
@@ -20,9 +21,16 @@ const Article = props => {
   const [replies, setReplies] = useState([])
   const [hasRendered, setHasRendered] = useState(false)
 
+  const [previewImgs, setPreviewImgs] = useState([])
+  const [previewIndex, setPreviewIndex] = useState(false)
+  const [showPreview, setShowPreview] = useState(false)
+
   const storeArticle = useMappedState(state => state.article) || {}
   const loginStatus = useMappedState(state => state.hasLogin)
 
+  const $article = useRef()
+
+  // 点击收藏
   const goCollect = async status => {
     if (!loginStatus) {
       Toast.fail('请点击右上角用户图标进行登录！', 1)
@@ -45,6 +53,24 @@ const Article = props => {
       Toast.fail('操作失败', 1)
     }
   }
+
+  // 初始化图片预览
+  const InitPreview = useCallback(
+    () => {
+      const imgs = []
+      const doms = $article.current.querySelectorAll('img')
+      doms.forEach((dom, idx) => {
+        imgs.push({
+          src: dom.src
+        })
+        dom.addEventListener('click', e => {
+          e.stopPropagation()
+          setPreviewIndex(idx)
+          setShowPreview(true)
+        })
+      })
+      setPreviewImgs(imgs)
+    }, [])
   
   useEffect(() => {
     window.scrollTo(0, 0)
@@ -59,6 +85,7 @@ const Article = props => {
       // nextTick to fix the code highlight, will be modified soon
       setTimeout(() => {
         codePrettify.prettyPrint()
+        InitPreview()
       }, 20)
     }
 
@@ -73,14 +100,14 @@ const Article = props => {
       setInfo(result)
       setReplies(replies)
       setHasRendered(true)
-      
+      InitPreview()
       codePrettify.prettyPrint()
     })
 
     return () => {
       request = null
     }
-  }, [id, storeArticle])
+  }, [InitPreview, id, storeArticle])
   
   // 渲染评论
   const renderReplies = () => {
@@ -165,9 +192,17 @@ const Article = props => {
 
         </div>
 
-        <div className="markdown-body article-body" dangerouslySetInnerHTML={{__html: info.content}}></div>
+        <div ref={$article} className="markdown-body article-body" dangerouslySetInnerHTML={{__html: info.content}}></div>
 
         { renderReplies() }
+
+        <ModalGateway>
+        {showPreview ? (
+          <Modal onClose={() => setShowPreview(false)}>
+            <Carousel views={previewImgs} currentIndexNumber={previewIndex} />
+          </Modal>
+        ) : null}
+        </ModalGateway>
 
       </section>
     : <Loader active inline='centered' size="medium">玩命加载中</Loader>

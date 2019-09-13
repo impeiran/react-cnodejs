@@ -21,6 +21,7 @@ const App = props => {
       <BrowserRouter>
         <Sidebar.Pushable>
           <Sidebar.Pusher>
+          
             <Header />
 
             <main>
@@ -34,6 +35,7 @@ const App = props => {
                 <Route component={NotFound}></Route>
               </Switch>
             </main>
+
             <SideBarContent />
 
           </Sidebar.Pusher>
