@@ -22,4 +22,5 @@
 
 ### 项目预览
 
-![](http://img.impeiran.com/cnode_qrcode.png)
+![](./qrcode.png)
+
