@@ -2,7 +2,7 @@ import React from 'react'
 import Header from '@/components/Header'
 import Tabbar from '@/components/Tabbar'
 import Topic from '@/view/Topic'
-import { Route, Redirect } from 'react-router-dom'
+import { Switch, Route, Redirect } from 'react-router-dom'
 import Layout, { Fixed } from './style'
 
 const navList = [
@@ -21,8 +21,10 @@ const BaseLayout = props => {
         <Tabbar value={navList} />
       </Fixed>
 
-      <Redirect from={'/'} to={'/topic/all'} exact />
-      <Route path={'/topic/:tag'} component={Topic} exact />
+      <Switch>
+        <Redirect from={'/'} to={'/topic/all'} exact />
+        <Route path={'/topic/:tag'} component={Topic} exact />
+      </Switch>
     </Layout>
   )
 }
