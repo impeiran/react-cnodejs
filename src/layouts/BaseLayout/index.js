@@ -2,6 +2,7 @@ import React from 'react'
 import Header from '@/components/Header'
 import Tabbar from '@/components/Tabbar'
 import Topic from '@/view/Topic'
+import NotFound from '@/view/NotFound'
 import { Switch, Route, Redirect } from 'react-router-dom'
 import Layout, { Fixed } from './style'
 
@@ -24,6 +25,7 @@ const BaseLayout = props => {
       <Switch>
         <Redirect from={'/'} to={'/topic/all'} exact />
         <Route path={'/topic/:tag'} component={Topic} exact />
+        <Route path={'*'} component={NotFound} />
       </Switch>
     </Layout>
   )

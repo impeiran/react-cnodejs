@@ -15,7 +15,7 @@
     "styled-components": "^5.0.1"
   },
   "scripts": {
-    "start": "PORT=9999 react-app-rewired start",
+    "start": "HOST=0.0.0.0 PORT=9999 react-app-rewired start",
     "build": "react-app-rewired build",
     "test": "react-app-rewired test",
     "eject": "react-scripts eject"
