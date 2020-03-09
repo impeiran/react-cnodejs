@@ -22,7 +22,7 @@ const TabbarWrapper = styled.ul`
 
 export const TabbarItem = styled.li`
   display: inline-block;
-  padding: 14px 16px;
+  padding: 12px 16px;
   box-sizing: content-box;
   font-size: 14px;
   /* transition: border-bottom-color .3s; */
