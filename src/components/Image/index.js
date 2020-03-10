@@ -29,7 +29,7 @@ Image.defaultProps = {
   alt: '',
   width: 50,
   height: 50,
-  radius: 10
+  radius: 8
 }
 
 Image.propTypes = {

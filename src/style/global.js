@@ -19,7 +19,6 @@ export const GlobalStyle = createGlobalStyle`
 		box-sizing: border-box;
 		border: 0;
 		font-size: 100%;
-		font: inherit;
 		vertical-align: baseline;
 	}
 	/* HTML5 display-role reset for older browsers */
@@ -52,5 +51,10 @@ export const GlobalStyle = createGlobalStyle`
 	}
 	a{
 		text-decoration: none;
+	}
+
+	h1, h2, h3, h4, h5, h6 {
+		font-family: Lato,Helvetica Neue,Arial,Helvetica,sans-serif;
+		font-weight: 700;
 	}
 `

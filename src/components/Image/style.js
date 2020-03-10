@@ -4,6 +4,7 @@ const ImageWrapper = styled.div`
   position: relative;
   width: ${props => props.width}px;
   height: ${props => props.height}px;
+  overflow: hidden;
   border-radius: ${props => typeof props.radius === 'number' ? props.radius + 'px' : props.radius};
 
   img {

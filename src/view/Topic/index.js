@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react'
 import { useParams } from 'react-router-dom'
+import Card from './Card/Card'
 import sdk from '@/service/cnode-sdk'
 
 const PAGE_SIZE = 20
@@ -32,7 +33,7 @@ const Topic = props => {
     <div style={{ padding: '15px' }}>
       {
         !!list && list.map(item => {
-          return <div key={item.id}>{ item.title }</div>
+          return <Card key={item.id} data={item} />
         })
       }
     </div>
