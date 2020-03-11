@@ -5,7 +5,7 @@ import Topic from '@/view/Topic'
 import NotFound from '@/view/NotFound'
 import About from '@/view/About'
 import { Switch, Route, Redirect } from 'react-router-dom'
-import Layout, { Fixed } from './style'
+import Layout, { Fixed, Main } from './style'
 
 const navList = [
   { name: '全部', route: '/topic/all' },
@@ -24,12 +24,14 @@ const BaseLayout = props => {
         <Tabbar value={navList} />
       </Fixed>
 
-      <Switch>
-        <Redirect from={'/'} to={'/topic/all'} exact />
-        <Route path={'/topic/:tag'} component={Topic} exact />
-        <Route path={'/about'} component={About} exact />
-        <Route path={'*'} component={NotFound} />
-      </Switch>
+      <Main>
+        <Switch>
+          <Redirect from={'/'} to={'/topic/all'} exact />
+          <Route path={'/topic/:tag'} component={Topic} exact />
+          <Route path={'/about'} component={About} exact />
+          <Route path={'*'} component={NotFound} />
+        </Switch>
+      </Main>
     </Layout>
   )
 }

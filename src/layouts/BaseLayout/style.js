@@ -14,4 +14,8 @@ export const Fixed = styled.div`
   overflow: hidden;
 `
 
+export const Main = styled.main`
+  padding: 15px;
+`
+
 export default Layout

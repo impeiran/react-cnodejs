@@ -2,6 +2,7 @@ import React from 'react'
 import Image from '@/components/Image'
 import Tag from '@/components/Tag'
 import { format } from 'timeago.js'
+import ContentLoader from 'react-content-loader'
 import CardWrapper, { CardHead, CardBody, Info, Time } from './style'
 
 const Card = props => {
@@ -33,6 +34,23 @@ const Card = props => {
       </CardBody>
     </CardWrapper>
   )
+}
+
+const Skeleton = React.memo(option => {
+  return <ContentLoader backgroundColor={'#dadada'} style={{ width: '100%', height: '105px' }} {...option}>
+  <rect rx="4" ry="4" width="44" height="25"></rect>
+  <rect x="55" y="2.5" width="100%" height="20" ></rect>
+  <rect y="35" rx="4" ry="4" width="44" height="44"></rect>
+  <rect x="55" y="37" width="80" height="15"></rect>
+  <rect x="55" y="58" width="80" height="15"></rect>
+  <rect x="0" y="92" width="100%" height="1"></rect>
+  </ContentLoader>
+})
+
+export const createSkeleton = (num = 1, option = {}) => {
+  return Array.from({ length: num }, (v, i) => {
+    return <Skeleton option={option} key={i} />
+  })
 }
 
 export default React.memo(Card)

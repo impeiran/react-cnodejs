@@ -1,9 +1,11 @@
 import React, { useState, useEffect, useCallback } from 'react'
-import { useParams } from 'react-router-dom'
-import Card from './Card/Card'
+import { useParams, Link } from 'react-router-dom'
+import Card, { createSkeleton } from './Card/Card'
 import sdk from '@/service/cnode-sdk'
 
 const PAGE_SIZE = 20
+
+const Skeleton = createSkeleton(5)
 
 const Topic = props => {
   const { tag } = useParams()
@@ -28,14 +30,21 @@ const Topic = props => {
     getTopicsByTab(page)
   }, [page, getTopicsByTab])
 
-  console.log('render component' )
   return (
-    <div style={{ padding: '15px' }}>
+    <div>
       {
         !!list && list.map(item => {
-          return <Card key={item.id} data={item} />
+          return (
+            <Link key={item.id} to={`/article/${item.id}`} >
+              <Card data={item} />
+            </Link>
+          )
         })
       }
+      {
+        (!list || !list.length) && page === 1 && Skeleton
+      }
+      
     </div>
   )
 }
