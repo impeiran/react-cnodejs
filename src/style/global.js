@@ -18,7 +18,7 @@ export const GlobalStyle = createGlobalStyle`
 		padding: 0;
 		box-sizing: border-box;
 		border: 0;
-		font-size: 100%;
+		font-size: 14px;
 		vertical-align: baseline;
 	}
 	/* HTML5 display-role reset for older browsers */

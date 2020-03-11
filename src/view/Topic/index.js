@@ -1,6 +1,9 @@
 import React, { useState, useEffect, useCallback } from 'react'
 import { useParams, Link } from 'react-router-dom'
+
+import Loading from '@/components/Loading'
 import Card, { createSkeleton } from './Card/Card'
+
 import sdk from '@/service/cnode-sdk'
 
 const PAGE_SIZE = 20
@@ -32,6 +35,7 @@ const Topic = props => {
 
   return (
     <div>
+      <Loading text={'玩命加载中'} />
       {
         !!list && list.map(item => {
           return (
