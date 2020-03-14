@@ -6,6 +6,7 @@
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
+    "@umijs/hooks": "^1.7.1",
     "axios": "^0.19.2",
     "intersection-observer": "^0.7.0",
     "prop-types": "^15.7.2",
@@ -29,10 +30,7 @@
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
-    "extends": "react-app",
-    "rules": {
-      "react-hooks/exhaustive-deps": 0
-    }
+    "extends": "react-app"
   },
   "browserslist": {
     "production": [

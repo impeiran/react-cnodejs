@@ -1,5 +1,5 @@
 import React, { useEffect, useCallback, useRef } from 'react'
-import Loading from '@/components/Loading'
+import Loading from '@/components/loading'
 import styled from 'styled-components'
 
 // polyfill
@@ -37,7 +37,6 @@ const ScrollList = props => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  console.log('render')
   return (
     <div>
       { props.children }
