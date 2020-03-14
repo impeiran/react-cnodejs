@@ -55,6 +55,14 @@ class SDK {
       tab
     })
   }
+
+  /**
+   * 获取话题的文章详情
+   * @param {String} topicId 
+   */
+  getTopicDetail (topicId) {
+    return this.get(`/topic/${topicId}`)
+  }
 }
 
 export default new SDK()

@@ -6,7 +6,7 @@ import ContentLoader from 'react-content-loader'
 import CardWrapper, { CardHead, CardBody, Info, Time } from './style'
 
 const Card = props => {
-  const { data } = props
+  const { data, ...resProps } = props
 
   const genTagType = () => {
     if (data.top) return 'top'
@@ -16,7 +16,7 @@ const Card = props => {
   }
 
   return (
-    <CardWrapper>
+    <CardWrapper {...resProps}>
       <CardHead>
         <Tag type={genTagType()}></Tag>
         <h4>{ data.title }</h4>

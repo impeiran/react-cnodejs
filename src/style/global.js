@@ -18,7 +18,6 @@ export const GlobalStyle = createGlobalStyle`
 		padding: 0;
 		box-sizing: border-box;
 		border: 0;
-		font-size: 14px;
 		vertical-align: baseline;
 	}
 	/* HTML5 display-role reset for older browsers */
@@ -26,29 +25,33 @@ export const GlobalStyle = createGlobalStyle`
 	footer, header, hgroup, menu, nav, section {
 		display: block;
 	}
-	body {
-		line-height: 1;
-	}
+	
 	html, body{
 		font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Fira Sans,Droid Sans,Helvetica Neue,sans-serif;
     color: #333;
+		font-size: 14px;
+		line-height: 1;
 		background: #f2f3f4;;
 	}
+
 	ol, ul {
 		list-style: none;
 	}
 	blockquote, q {
 		quotes: none;
 	}
+
 	blockquote:before, blockquote:after,
 	q:before, q:after {
 		content: '';
 		content: none;
 	}
+
 	table {
 		border-collapse: collapse;
 		border-spacing: 0;
 	}
+
 	a{
 		text-decoration: none;
 	}
@@ -56,5 +59,9 @@ export const GlobalStyle = createGlobalStyle`
 	h1, h2, h3, h4, h5, h6 {
 		font-family: Lato,Helvetica Neue,Arial,Helvetica,sans-serif;
 		font-weight: 700;
+	}
+
+	pre.prettyprint, code.prettyprint {
+		background: rgb(50, 50, 50);
 	}
 `

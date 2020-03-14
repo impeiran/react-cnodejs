@@ -1,15 +1,16 @@
-import React, { useCallback } from 'react'
+import React, { useCallback, useMemo } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import Card, { createSkeleton } from './card/card'
 import ScrollList from '@/components/scroll-list'
-import sdk from '@/service/cnode-sdk'
 import useLoadMore from '@/hooks/useLoadMore'
+import sdk from '@/service/cnode-sdk'
+import isEmpty from '@/utils/isEmpty'
 
 const PAGE_SIZE = 20
 
 const Skeleton = createSkeleton(5)
 
-const Topic = props => {
+const Topic = () => {
   const { tag } = useParams()
 
   const getTopicsByTab = useCallback(info => {
@@ -24,8 +25,8 @@ const Topic = props => {
     }
   }, [tag])
 
-  const hasList = !!list && !!list.length
-  console.log('render topic')
+  const hasList = useMemo(() => !isEmpty(list), [list])
+
   return (
     <>
       { 
@@ -34,7 +35,7 @@ const Topic = props => {
           {
             list.map(item => {
               return (
-                <Link key={item.id} to={`/article/${item.id}`} >
+                <Link key={item.id} to={{ pathname: `/article/${item.id}`, state: { info: item } }} >
                   <Card data={item} />
                 </Link>
               )
@@ -42,9 +43,7 @@ const Topic = props => {
           }
         </ScrollList>
       }
-      {
-        !hasList && Skeleton
-      }
+      { !hasList && Skeleton }
     </>
   )
 }

@@ -6,6 +6,7 @@ import NotFound from '@/view/not-found'
 import About from '@/view/about'
 import { Switch, Route, Redirect } from 'react-router-dom'
 import Layout, { Fixed, Main } from './style'
+import Article from '@/view/article'
 
 const navList = [
   { name: '全部', route: '/topic/all' },
@@ -28,6 +29,7 @@ const BaseLayout = props => {
         <Switch>
           <Redirect from={'/'} to={'/topic/all'} exact />
           <Route path={'/topic/:tag'} component={Topic} exact />
+          <Route path={'/article/:id'} component={Article} exact />
           <Route path={'/about'} component={About} exact />
           <Route path={'*'} component={NotFound} />
         </Switch>

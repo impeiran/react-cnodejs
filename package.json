@@ -8,6 +8,9 @@
     "@testing-library/user-event": "^7.1.2",
     "@umijs/hooks": "^1.7.1",
     "axios": "^0.19.2",
+    "code-prettify": "https://github.com/google/code-prettify#master",
+    "github-markdown-css": "^4.0.0",
+    "highlight.js": "^9.18.1",
     "intersection-observer": "^0.7.0",
     "prop-types": "^15.7.2",
     "react": "^16.13.0",
@@ -45,6 +48,7 @@
     ]
   },
   "devDependencies": {
+    "@babel/plugin-proposal-optional-chaining": "^7.8.3",
     "customize-cra": "^0.9.1",
     "react-app-rewired": "^2.1.5"
   }

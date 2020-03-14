@@ -7,6 +7,11 @@ const defaultOption = {
   initPageSize: 10
 }
 
+/**
+ * @param {Function} action should return a Promise
+ * @param {Object} option
+ * @param {Array} deps dependecies
+ */
 export default (action = noop, option, deps = []) => {
   option = Object.assign(option || {}, defaultOption)
 
