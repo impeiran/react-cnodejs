@@ -1,10 +1,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useState, useMemo } from 'react'
 import { useLocation, useParams } from 'react-router-dom'
-import isEmpty from '@/utils/isEmpty'
-import ArticleWrapper, { Title } from './style'
-import sdk from '@/service/cnode-sdk'
 import InfoBar from './info-bar'
+import CommentPanel, { SkeletonComment } from './comment-panel'
+import ArticleWrapper, { Title, SkeletonMain } from './style'
+import sdk from '@/service/cnode-sdk'
+import isEmpty from '@/utils/isEmpty'
 
 import 'github-markdown-css'
 import 'code-prettify/styles/sunburst.css'
@@ -13,8 +14,9 @@ const Article = () => {
   const { state } = useLocation()
   const { id } = useParams()
 
-  let info = state?.info || {}
-  const noCacheInfo = isEmpty(info)
+  const [info, setInfo] = useState(state?.info || {})
+
+  const noCacheInfo = useMemo(() => isEmpty(info), [info])
 
   const contentEl = useRef()
 
@@ -25,11 +27,16 @@ const Article = () => {
 
     sdk.getTopicDetail(id).then(({ data }) => {
       if (noCacheInfo) {
-        info = data
+        setInfo(data)
         Promise.resolve().then(() => window.PR?.prettyPrint())
       } else {
-        info.replies = data.replies
-        info.is_collect = data.is_collect
+        setInfo(info => {
+          return {
+            ...info,
+            replies: data.replies,
+            is_collect: data.is_collect
+          }
+        })
       }
     })
   }, [])
@@ -37,13 +44,24 @@ const Article = () => {
   console.log('render article')
   return (
     <ArticleWrapper>
-      <Title>{ info && info.title }</Title>
-      <InfoBar value={ info }></InfoBar>
-      <div 
-        ref={contentEl}
-        className='markdown-body' 
-        dangerouslySetInnerHTML={{__html: info.content}}
-      ></div>
+      {
+        info.hasOwnProperty('content')
+          ? <>
+            <Title>{ info && info.title }</Title>
+            <InfoBar value={ info }></InfoBar>
+            <div 
+              ref={contentEl}
+              className='markdown-body' 
+              dangerouslySetInnerHTML={{__html: info.content}}
+            ></div>
+          </>
+          : <SkeletonMain />
+      }
+      {
+        info.hasOwnProperty('replies')
+          ? <CommentPanel value={info.replies} />
+          : <SkeletonComment />
+      }
     </ArticleWrapper>
   )
 }

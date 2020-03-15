@@ -3,7 +3,7 @@ import ImageWrapper from './style'
 import PropTypes from 'prop-types'
 
 const Image = props => {
-  const { src, alt, width, height, radius, style = {} } = props
+  const { src, alt, width, height, radius, style = {}, onClick } = props
 
   const [status, setStatus] = useState('loading')
 
@@ -14,6 +14,7 @@ const Image = props => {
       height={height}
       radius={radius}
       style={{...style}}
+      onClick={onClick}
     >
       <img     
         src={src}
@@ -29,7 +30,8 @@ Image.defaultProps = {
   alt: '',
   width: 50,
   height: 50,
-  radius: 8
+  radius: 8,
+  onClick: () => {}
 }
 
 Image.propTypes = {

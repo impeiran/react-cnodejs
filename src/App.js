@@ -13,8 +13,6 @@ function App() {
           <Route path={'/'} component={BaseLayout} />
         </Switch>
       </BrowserRouter>
-
-      
     </div>
   );
 }
