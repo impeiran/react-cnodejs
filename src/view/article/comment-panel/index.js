@@ -7,7 +7,7 @@ import {
 } from './style'
 
 const CommentPanel = props => {
-  const { value, arcleAuthor } = props
+  const { value, articleAuthor } = props
 
   return (
     <CommentPanelWrapper>
@@ -19,7 +19,7 @@ const CommentPanel = props => {
               <Comment 
                 key={item.id} 
                 value={item}
-                arcleAuthor={arcleAuthor}
+                articleAuthor={articleAuthor}
                 num={index + 1} 
               />
             )

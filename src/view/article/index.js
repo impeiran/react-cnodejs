@@ -59,7 +59,7 @@ const Article = () => {
       }
       {
         info.hasOwnProperty('replies')
-          ? <CommentPanel value={info.replies} />
+          ? <CommentPanel value={info.replies} articleAuthor={info.author?.loginname} />
           : <SkeletonComment />
       }
     </ArticleWrapper>
