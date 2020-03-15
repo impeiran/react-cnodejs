@@ -41,7 +41,6 @@ const Article = () => {
     })
   }, [])
 
-  console.log('render article')
   return (
     <ArticleWrapper>
       {

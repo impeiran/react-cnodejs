@@ -1,4 +1,5 @@
 import React from 'react'
+import { useHistory } from 'react-router-dom'
 import Image from '@/components/image'
 import Tag from '@/components/tag'
 import { format } from 'timeago.js'
@@ -6,12 +7,18 @@ import CardWrapper, { CardHead, CardBody, Info, Time } from './style'
 
 const Card = props => {
   const { data, ...resProps } = props
+  const history = useHistory()
 
   const genTagType = () => {
     if (data.top) return 'top'
     if (data.good) return 'good'
 
     return data.tab
+  }
+
+  const visitUser = (e, name) => {
+    e.stopPropagation()
+    history.push(`/user/${name}`)
   }
 
   return (
@@ -22,7 +29,11 @@ const Card = props => {
       </CardHead>
 
       <CardBody>
-        <Image src={ data.author.avatar_url || '' } width={44} height={44} radius={4} />
+        <Image 
+          src={ data.author?.avatar_url || '' } 
+          width={44} height={44} radius={4}
+          onClick={e => visitUser(e, data.author.loginname)}
+        />
         <Info>
           <ul>
             <li>查看数：{data.visit_count}</li>

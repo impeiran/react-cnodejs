@@ -1,22 +1,35 @@
 import React from 'react'
+import { useHistory, Link } from 'react-router-dom'
 import { Comment, CommentHeader, CommentInfoBar } from './style'
 import Image from '@/components/image'
 import { format } from 'timeago.js'
 
 export default props => {
   const { value = {}, num, articleAuthor = '' } = props
+  const history = useHistory()
+
+  const visitUser = (e, name) => {
+    e.stopPropagation()
+    history.push(`/user/${name}`)
+  }
 
   return (
     <Comment>
     {
       props.children || <>
         <CommentHeader>
-          <Image src={value.author?.avatar_url || ''} width={30} height={30} radius={4} />
+          <Image 
+            src={value.author?.avatar_url || ''} 
+            width={30} height={30} radius={4} 
+            onClick={e => visitUser(e, value.author?.loginname)}
+          />
           <CommentInfoBar>
-            <h3>
-              { value.author?.loginname }
-              { articleAuthor === value.author?.loginname ? '(楼主)' : '' }
-            </h3>
+            <Link to={`/user/${value.author?.loginname}`}>
+              <h3>
+                { value.author?.loginname }
+                { articleAuthor === value.author?.loginname ? '(楼主)' : '' }
+              </h3>
+            </Link>
             <ul>
               <li>{ num }楼</li>
               <li>{ format(value.create_at, 'zh_CN') }</li>

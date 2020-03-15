@@ -1,8 +1,8 @@
 import axios from 'axios'
 
 const handleError = (err) => {
-  let msg = err.message || err.msg || '请求出错了'
-  alert(msg)
+  let msg = err.message || err.msg || ''
+  alert(`请求失败，请重新刷新页面尝试：${msg}`)
 }
 
 const handleResponse = (res, resolve) => {
@@ -60,11 +60,25 @@ class SDK {
    * 获取话题的文章详情
    * @param {String} topicId 
    */
-  getTopicDetail (topicId) {
+  getTopicDetail (topicId = '') {
     return this.get(`/topic/${topicId}`)
   }
   
-  // getUserDetail
+  /**
+   * 获取用户详情页数据
+   * @param {String} username 
+   */
+  getUserDetail (username = '') {
+    return this.get(`/user/${username}`)
+  }
+
+  /**
+   * 获取用户收藏的文章
+   * @param {String}} username 
+   */
+  getUserCollection (username = '') {
+    return this.get(`/topic_collect/${username}`)
+  }
 }
 
 export default new SDK()

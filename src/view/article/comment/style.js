@@ -24,6 +24,8 @@ const CommentInfoBar = styled.div`
   flex: 1;
   margin: 0 10px;
 
+  a { color: #333; }
+
   h3{
     margin-bottom: 4px;
     font-size: 14px;

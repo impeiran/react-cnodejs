@@ -1,5 +1,5 @@
 import React, { useCallback, useMemo } from 'react'
-import { useParams, Link } from 'react-router-dom'
+import { useParams, Link, useHistory } from 'react-router-dom'
 import Card, { createSkeleton } from './card/card'
 import ScrollList from '@/components/scroll-list'
 import useLoadMore from '@/hooks/useLoadMore'
@@ -12,6 +12,7 @@ const Skeleton = createSkeleton(5)
 
 const Topic = () => {
   const { tag } = useParams()
+  const history = useHistory()
 
   const getTopicsByTab = useCallback(info => {
     return sdk.getTopicsByTab(tag, info.page || 1, PAGE_SIZE)
@@ -26,6 +27,12 @@ const Topic = () => {
   }, [tag])
 
   const hasList = useMemo(() => !isEmpty(list), [list])
+  const visitArticle = info => {
+    history.push({
+      pathname: `/article/${info.id}`,
+      state: info
+    })
+  }
 
   return (
     <>
@@ -35,9 +42,7 @@ const Topic = () => {
           {
             list.map(item => {
               return (
-                <Link key={item.id} to={{ pathname: `/article/${item.id}`, state: { info: item } }} >
-                  <Card data={item} />
-                </Link>
+                <Card key={item.id} data={item} onClick={() => visitArticle(item)} />
               )
             })
           }
