@@ -7,7 +7,7 @@ import {
 } from './style'
 
 const CommentPanel = props => {
-  const value = props.value
+  const { value, arcleAuthor } = props
 
   return (
     <CommentPanelWrapper>
@@ -16,7 +16,12 @@ const CommentPanel = props => {
         value?.length 
           ? value.map((item, index) => {
             return (
-              <Comment key={item.id} value={item} num={index + 1} />
+              <Comment 
+                key={item.id} 
+                value={item}
+                arcleAuthor={arcleAuthor}
+                num={index + 1} 
+              />
             )
           })
           : <Comment>

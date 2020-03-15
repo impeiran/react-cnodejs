@@ -63,6 +63,8 @@ class SDK {
   getTopicDetail (topicId) {
     return this.get(`/topic/${topicId}`)
   }
+  
+  // getUserDetail
 }
 
 export default new SDK()

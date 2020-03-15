@@ -4,7 +4,7 @@ import Image from '@/components/image'
 import { format } from 'timeago.js'
 
 export default props => {
-  const { value = {}, num } = props
+  const { value = {}, num, arcleAuthor = '' } = props
 
   return (
     <Comment>
@@ -13,7 +13,10 @@ export default props => {
         <CommentHeader>
           <Image src={value.author?.avatar_url || ''} width={30} height={30} radius={4} />
           <CommentInfoBar>
-            <h3>{ value.author?.loginname }</h3>
+            <h3>
+              { value.author?.loginname }
+              { arcleAuthor === value.author?.loginname ? '(楼主)' : '' }
+            </h3>
             <ul>
               <li>{ num }楼</li>
               <li>{ format(value.create_at, 'zh_CN') }</li>
