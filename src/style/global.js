@@ -1,4 +1,4 @@
-import { createGlobalStyle } from 'styled-components'
+import { createGlobalStyle } from "styled-components";
 
 export const GlobalStyle = createGlobalStyle`
 	html, body, div, span, applet, object, iframe,
@@ -31,7 +31,7 @@ export const GlobalStyle = createGlobalStyle`
     color: #333;
 		font-size: 14px;
 		line-height: 1;
-		background: #f2f3f4;;
+		background: #f2f3f4;
 	}
 
 	ol, ul {
@@ -64,4 +64,4 @@ export const GlobalStyle = createGlobalStyle`
 	pre.prettyprint, code.prettyprint {
 		background: rgb(50, 50, 50);
 	}
-`
+`;

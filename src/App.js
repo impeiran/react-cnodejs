@@ -6,7 +6,7 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom'
 function App() {
   return (
     <div className="App">
-      <BrowserRouter basename={ process.env.NODE_ENV !== 'production' ? '' : '/cnode' }>
+      <BrowserRouter basename={ '/cnode' }>
         <GlobalStyle />
 
         <Switch>
