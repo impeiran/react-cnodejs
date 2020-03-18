@@ -8,6 +8,7 @@ const ArticleWrapper = styled.article`
 
 export const Title = styled.h2`
   margin-bottom: 6px;
+  line-height: 1.2;
   font-size: 22px;
 `
 

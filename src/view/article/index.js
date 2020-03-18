@@ -14,7 +14,7 @@ const Article = () => {
   const { state } = useLocation()
   const { id } = useParams()
 
-  const [info, setInfo] = useState(state?.info || {})
+  const [info, setInfo] = useState(state || {})
 
   const noCacheInfo = useMemo(() => isEmpty(info), [info])
 
