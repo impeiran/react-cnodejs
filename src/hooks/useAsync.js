@@ -24,8 +24,7 @@ const useAysnc = (action = noop, option = {}, deps = []) => {
     const ret = action()
     if (ret.then) {
       ret.then(res => {
-        result.current = res
-        option.onSuccess(res)
+        result.current = option.onSuccess(res) || res
       })
       .catch(option.onError)
       .finally(() => setLoading(false))
@@ -35,7 +34,6 @@ const useAysnc = (action = noop, option = {}, deps = []) => {
   }, [action])
 
   useEffect(() => {
-    console.log(option.mannual)
     !option.mannual && run()
   }, [])
 
