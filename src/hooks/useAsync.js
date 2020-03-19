@@ -4,11 +4,17 @@ import { useEffect, useState, useCallback, useRef } from 'react'
 const noop = () => {}
 const defaultOption = {
   mannual: false,
+  onSuccess: noop,
   onError: noop
 }
 
+/**
+ * @param {Function} action should return a Promise
+ * @param {Object} option
+ * @param {Array} deps dependecies
+ */
 const useAysnc = (action = noop, option = {}, deps = []) => {
-  option = Object.assign(option, defaultOption)
+  option = Object.assign({}, defaultOption, option)
 
   const result = useRef({})
   const [loading, setLoading] = useState(false)
@@ -17,15 +23,19 @@ const useAysnc = (action = noop, option = {}, deps = []) => {
     setLoading(true)
     const ret = action()
     if (ret.then) {
-      ret.then(res => result.current = res)
-        .catch(option.onError)
-        .finally(() => setLoading(false))
+      ret.then(res => {
+        result.current = res
+        option.onSuccess(res)
+      })
+      .catch(option.onError)
+      .finally(() => setLoading(false))
     } else {
       setLoading(false)
     }
   }, [action])
 
   useEffect(() => {
+    console.log(option.mannual)
     !option.mannual && run()
   }, [])
 

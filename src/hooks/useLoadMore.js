@@ -1,9 +1,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useState, useEffect, useRef, useCallback } from 'react'
+import { useEffect, useRef, useCallback } from 'react'
+import useAsync from './useAsync'
 
 const noop = () => {}
 
 const defaultOption = {
+  initPage: 1,
   initPageSize: 10
 }
 
@@ -13,51 +15,44 @@ const defaultOption = {
  * @param {Array} deps dependecies
  */
 export default (action = noop, option, deps = []) => {
-  option = Object.assign(option || {}, defaultOption)
 
-  const [loading, setLoading] = useState(false)
+  option = Object.assign({}, defaultOption, option || {})
 
   const infoRef = useRef({
     completed: false,
-    page: 1,
+    page: option.initPage || 1,
     list: []
   })
 
-  const handler = useCallback(() => {
-    if (action) {
-      const ret = action({ page: infoRef.current.page, pageSize: option.initPageSize })
+  const actionHandler = useCallback(() => {
+    return action({ page: infoRef.current.page, pageSize: option.initPageSize })
+  }, [action])
 
-      if (ret.then) {
-        ret.then(res => {
-          const prevList = infoRef.current.list
-          const currentPage = infoRef.current.page
+  const { loading, run } = useAsync(actionHandler, {
+    mannual: true,
+    onSuccess: res => {
+      const prevList = infoRef.current.list
+      const currentPage = infoRef.current.page
 
-          const resultList = option.formatResult
-            ? option.formatResult(res).list
-            : res.list
+      const resultList = option.formatResult
+        ? option.formatResult(res).list
+        : res.list
 
-          infoRef.current.list = currentPage !== 1
-            ? prevList.concat(resultList)
-            : resultList
+      infoRef.current.list = currentPage !== 1
+        ? prevList.concat(resultList)
+        : resultList
 
-          infoRef.current.completed = option.isNoMore ? option.isNoMore(res) : false
-        }).finally(() => setLoading(false))
-      }
+      infoRef.current.completed = option.isNoMore ? option.isNoMore(res) : false
     }
-  }, [action, option])
+  })
 
-  const loadMore = useCallback(
-    () => {
-      infoRef.current = {
-        ...infoRef.current,
-        page: infoRef.current.page + 1
-      }
-      setLoading(true)
-    },
-    []
-  )
-
-  const page = infoRef.current.page
+  const loadMore = useCallback(() => {
+    infoRef.current = {
+      ...infoRef.current,
+      page: infoRef.current.page + 1
+    }
+    run()
+  },[])
 
   useEffect(() => {
     infoRef.current = {
@@ -65,12 +60,8 @@ export default (action = noop, option, deps = []) => {
       list: [],
       completed: false
     }
+    run()
   }, [...deps])
-
-  useEffect(() => {
-    setLoading(true)
-    handler()
-  }, [page, ...deps])
 
   return {
     loading,

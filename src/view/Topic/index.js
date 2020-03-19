@@ -36,8 +36,6 @@ const Topic = () => {
     })
   }
 
-  console.log('render topic list')
-
   return (
     <>
       { 
