@@ -27,12 +27,16 @@ const Topic = () => {
   }, [tag])
 
   const hasList = useMemo(() => !isEmpty(list), [list])
+
+  // 点击查看文章详情
   const visitArticle = info => {
     history.push({
       pathname: `/article/${info.id}`,
       state: info
     })
   }
+
+  console.log('render topic list')
 
   return (
     <>

@@ -30,10 +30,16 @@ export default (action = noop, option, deps = []) => {
       if (ret.then) {
         ret.then(res => {
           const prevList = infoRef.current.list
-          infoRef.current.list = prevList.concat(option.formatResult
+          const currentPage = infoRef.current.page
+
+          const resultList = option.formatResult
             ? option.formatResult(res).list
             : res.list
-          )
+
+          infoRef.current.list = currentPage !== 1
+            ? prevList.concat(resultList)
+            : resultList
+
           infoRef.current.completed = option.isNoMore ? option.isNoMore(res) : false
         }).finally(() => setLoading(false))
       }
@@ -59,13 +65,12 @@ export default (action = noop, option, deps = []) => {
       list: [],
       completed: false
     }
-    setLoading(true)
   }, [...deps])
 
   useEffect(() => {
     setLoading(true)
     handler()
-  }, [page])
+  }, [page, ...deps])
 
   return {
     loading,
