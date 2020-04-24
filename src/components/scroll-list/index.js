@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useCallback, useRef } from 'react'
 import Loading from '@/components/loading'
 import styled from 'styled-components'
@@ -15,26 +16,21 @@ const ScrollList = props => {
   const { completed, onLoad, loading } = props
 
   const hanlder = useCallback(entries => {
-    if (completed) return;
-
+    if (completed) return
     if (entries[0].intersectionRatio > 0) {
       onLoad()
     }
-    // onLoad()
   }, [completed, onLoad])
 
   const observer = useRef(new IntersectionObserver(hanlder))
-
   const bottomEl = useRef()
 
   useEffect(() => {    
     observer.current.observe(bottomEl.current)
 
     return () => {
-      // eslint-disable-next-line react-hooks/exhaustive-deps
       observer.current.unobserve(bottomEl.current)
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return (

@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect } from 'react'
+import React from 'react'
 import { useLocation, useParams } from 'react-router-dom'
 
 import InfoBar from './info-bar'
