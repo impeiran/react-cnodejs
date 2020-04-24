@@ -1,12 +1,18 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect } from 'react'
 import { useLocation, useParams } from 'react-router-dom'
-import useAsync from '@/hooks/useAsync'
+
 import InfoBar from './info-bar'
 import CommentPanel, { SkeletonComment } from './comment-panel'
-import ArticleWrapper, { Title, SkeletonMain } from './style'
+
 import sdk from '@/service/cnode-sdk'
 import isEmpty from '@/utils/isEmpty'
+import useAsync from '@/hooks/useAsync'
+import useInitPosition from '@/hooks/useInitPosition'
+
+import ArticleWrapper, { Title, SkeletonMain } from './style'
+
+
 
 import 'github-markdown-css'
 import 'code-prettify/styles/sunburst.css'
@@ -16,9 +22,7 @@ const Article = () => {
 
   let info = useLocation().state || {}
 
-  useEffect(() => {
-    window.scrollTo(0, 0)
-  }, [])
+  useInitPosition(0, 0)
 
   const { loading, result } = useAsync(() => sdk.getTopicDetail(id))
   

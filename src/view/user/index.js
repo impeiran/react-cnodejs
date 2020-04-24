@@ -1,9 +1,13 @@
 import React, { useEffect } from 'react'
 import { useParams, Link } from 'react-router-dom'
+
 import Image from '@/components/image'
-import useAysnc from '@/hooks/useAsync'
 import sdk from '@/service/cnode-sdk'
 import isEmpty from '@/utils/isEmpty'
+import useAysnc from '@/hooks/useAsync'
+import useInitPosition from '@/hooks/useInitPosition'
+
+
 
 import { 
   InfoPanel,
@@ -72,9 +76,7 @@ const User = props => {
     result: collection 
   } = useAysnc(() => sdk.getUserCollection(name))
 
-  useEffect(() => {
-    window.scrollTo(0, 0)
-  }, [])
+  useInitPosition(0, 0)
 
   info = info.data
 
