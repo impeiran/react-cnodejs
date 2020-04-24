@@ -3,7 +3,7 @@ import { BaseLayout } from './layouts'
 import { GlobalStyle } from './style/global'
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
 
-function App() {
+const App: React.FC = (props) => {
   return (
     <div className="App">
       <BrowserRouter basename={ '/cnode' }>
@@ -14,7 +14,8 @@ function App() {
         </Switch>
       </BrowserRouter>
     </div>
-  );
+  )
 }
+
 
 export default App;

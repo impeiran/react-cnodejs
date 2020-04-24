@@ -1,10 +1,17 @@
+import React from 'react'
 import styled from 'styled-components'
 
+interface Option {
+  component: React.FC;
+  width?: string;
+  lineClamp?: number;
+}
+
 export const ellipse = ({
-  component = null,
+  component,
   width = 'auto',
   lineClamp = 1
-}) => {
+}: Option) => {
   let strTpl = `
     overflow: hidden;
     text-overflow: ellipsis;

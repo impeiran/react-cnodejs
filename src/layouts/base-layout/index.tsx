@@ -19,7 +19,7 @@ const navList = [
   { name: '关于', route: '/about' },
 ]
 
-const BaseLayout = props => {
+const BaseLayout = () => {
   return (
     <Layout>
       <Fixed>
