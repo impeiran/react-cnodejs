@@ -8,7 +8,7 @@ import {
   COLOR_GREEN_TEAL,
   COLOR_GREEN_OLIVE,
   COLOR_GREY_INFO
-} from '@/style/constants'
+} from 'style/constants'
 
 const DICT = {
   top: { text: '置顶', color: COLOR_RED },

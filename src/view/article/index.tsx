@@ -5,10 +5,10 @@ import { useLocation, useParams } from 'react-router-dom'
 import InfoBar from './info-bar'
 import CommentPanel, { SkeletonComment } from './comment-panel'
 
-import sdk from '@/service/cnode-sdk'
-import isEmpty from '@/utils/isEmpty'
-import useAsync from '@/hooks/useAsync'
-import useInitPosition from '@/hooks/useInitPosition'
+import sdk from 'service/cnode-sdk'
+import isEmpty from 'utils/isEmpty'
+import useAsync from 'hooks/useAsync'
+import useInitPosition from 'hooks/useInitPosition'
 
 import ArticleWrapper, { Title, SkeletonMain } from './style'
 

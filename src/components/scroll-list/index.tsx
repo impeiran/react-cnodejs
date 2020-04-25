@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useCallback, useRef } from 'react'
-import Loading from '@/components/loading'
+import Loading from 'components/loading'
 import styled from 'styled-components'
 
 // polyfill

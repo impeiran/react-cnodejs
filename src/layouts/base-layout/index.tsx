@@ -1,13 +1,13 @@
 import React from 'react'
 import { Switch, Route, Redirect } from 'react-router-dom'
 
-import Header from '@/components/header'
-import Tabbar from '@/components/tabbar'
-import Topic from '@/view/topic'
-import Article from '@/view/article'
-import User from '@/view/user'
-import About from '@/view/about'
-import NotFound from '@/view/not-found'
+import Header from 'components/header'
+import Tabbar from 'components/tabbar'
+import Topic from 'view/topic'
+import Article from 'view/article'
+import User from 'view/user'
+import About from 'view/about'
+import NotFound from 'view/not-found'
 import Layout, { Fixed, Main } from './style'
 
 const navList = [
@@ -23,7 +23,7 @@ const BaseLayout = () => {
   return (
     <Layout>
       <Fixed>
-        <Header logo={require('@/assets/logo.svg')} />
+        <Header logo={require('assets/logo.svg')} />
         <Tabbar value={navList} />
       </Fixed>
 

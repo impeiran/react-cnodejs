@@ -1,11 +1,11 @@
 import React from 'react'
 import { useParams, Link } from 'react-router-dom'
 
-import Image from '@/components/image'
-import sdk from '@/service/cnode-sdk'
-import isEmpty from '@/utils/isEmpty'
-import useAysnc from '@/hooks/useAsync'
-import useInitPosition from '@/hooks/useInitPosition'
+import Image from 'components/image'
+import sdk from 'service/cnode-sdk'
+import isEmpty from 'utils/isEmpty'
+import useAysnc from 'hooks/useAsync'
+import useInitPosition from 'hooks/useInitPosition'
 
 
 

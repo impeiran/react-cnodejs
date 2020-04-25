@@ -1,7 +1,7 @@
 import React from 'react'
 import { useHistory } from 'react-router-dom'
 import InfoBarWrapper from './style'
-import Image from '@/components/image'
+import Image from 'components/image'
 import { format } from 'timeago.js'
 
 const InfoBar = props => {

@@ -1,7 +1,7 @@
 import React from 'react'
 import { useHistory } from 'react-router-dom'
-import Image from '@/components/image'
-import Tag from '@/components/tag'
+import Image from 'components/image'
+import Tag from 'components/tag'
 import { format } from 'timeago.js'
 import CardWrapper, { CardHead, CardBody, Info, Time } from './style'
 

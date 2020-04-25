@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { BG_DARK, COLOR_THEME } from '@/style/constants'
+import { BG_DARK, COLOR_THEME } from 'style/constants'
 
 const TabbarWrapper = styled.ul`
   display: flex;

@@ -1,7 +1,7 @@
 import React from 'react'
 import { useHistory, Link } from 'react-router-dom'
 import { Comment, CommentHeader, CommentInfoBar } from './style'
-import Image from '@/components/image'
+import Image from 'components/image'
 import { format } from 'timeago.js'
 
 export default props => {

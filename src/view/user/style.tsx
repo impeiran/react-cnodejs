@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from "styled-components"
-import { COLOR_THEME } from '@/style/constants'
+import { COLOR_THEME } from 'style/constants'
 import ContentLoader from 'react-content-loader'
 
 const InfoPanel = styled.div`
