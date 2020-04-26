@@ -6,7 +6,7 @@ import styled from 'styled-components'
 // polyfill
 import 'intersection-observer'
 
-export interface Iprops {
+export interface IProps {
   loading: boolean;
   completed: boolean;
   children: React.ReactNode;
@@ -19,7 +19,7 @@ const TipWord = styled.div`
   text-align: center;
 `
 
-const ScrollList: React.FC<Iprops> = (props: Iprops) => {
+const ScrollList: React.FC<IProps> = (props: IProps) => {
   const { completed, onLoad, loading } = props
 
   const hanlder = useCallback(entries => {

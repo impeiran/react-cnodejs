@@ -10,7 +10,7 @@ import {
   COLOR_GREY_INFO
 } from 'style/constants'
 
-interface Iprops {
+interface IProps {
   type: string
 }
 
@@ -42,7 +42,7 @@ const TagUI = styled.label<{ color: string }>`
   border-radius: 4px;
 `
 
-const Tag: React.FC<Iprops> = (props: Iprops) => {
+const Tag: React.FC<IProps> = (props: IProps) => {
   const type = props.type || 'default'
   return <TagUI color={ DICT[type].color }>{ DICT[type].text }</TagUI>
 }

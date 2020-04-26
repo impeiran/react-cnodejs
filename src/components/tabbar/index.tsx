@@ -7,11 +7,11 @@ export interface Tabber {
   route: string;
 }
 
-interface Iprops {
+interface IProps {
   value: Array<Tabber>;
 }
 
-const Tabbar: React.FC<Iprops> = (props: Iprops) => {
+const Tabbar: React.FC<IProps> = (props: IProps) => {
   return (
     <TabbarWrapper>
       {
