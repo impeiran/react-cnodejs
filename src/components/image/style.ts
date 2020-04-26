@@ -1,6 +1,12 @@
 import styled from 'styled-components'
 
-const ImageWrapper = styled.div`
+interface WrapperProps {
+  width?: number;
+  height?: number;
+  radius?: string | number;
+}
+
+const ImageWrapper = styled.div<WrapperProps>`
   position: relative;
   width: ${props => props.width}px;
   height: ${props => props.height}px;

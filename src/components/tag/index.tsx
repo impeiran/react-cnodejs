@@ -10,7 +10,20 @@ import {
   COLOR_GREY_INFO
 } from 'style/constants'
 
-const DICT = {
+interface Iprops {
+  type: string
+}
+
+interface cate {
+  text: string;
+  color: string;
+}
+
+interface TagDict {
+  [index: string]: cate;
+}
+
+const DICT: TagDict = {
   top: { text: '置顶', color: COLOR_RED },
   good: { text: '精华', color: COLOR_ORANGE_DEEP },
   share: { text: '分享', color: COLOR_GREEN_TEAL },
@@ -19,7 +32,7 @@ const DICT = {
   default: { text: '话题', color: COLOR_GREY_INFO },
 }
 
-const TagUI = styled.label`
+const TagUI = styled.label<{ color: string }>`
   display: inline-block;
   padding: 7px 10px;
   color: #fff;
@@ -29,7 +42,7 @@ const TagUI = styled.label`
   border-radius: 4px;
 `
 
-const Tag = props => {
+const Tag: React.FC<Iprops> = (props: Iprops) => {
   const type = props.type || 'default'
   return <TagUI color={ DICT[type].color }>{ DICT[type].text }</TagUI>
 }

@@ -2,7 +2,7 @@ import React from 'react'
 import { Switch, Route, Redirect } from 'react-router-dom'
 
 import Header from 'components/header'
-import Tabbar from 'components/tabbar'
+import Tabbar, { Tabber } from 'components/tabbar'
 import Topic from 'view/topic'
 import Article from 'view/article'
 import User from 'view/user'
@@ -10,7 +10,7 @@ import About from 'view/about'
 import NotFound from 'view/not-found'
 import Layout, { Fixed, Main } from './style'
 
-const navList = [
+const navList: Tabber[] = [
   { name: '全部', route: '/topic/all' },
   { name: '精华', route: '/topic/good' },
   { name: '分享', route: '/topic/share' },

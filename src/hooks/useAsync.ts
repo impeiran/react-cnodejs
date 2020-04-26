@@ -4,24 +4,45 @@ import { useEffect, useState, useCallback, useRef } from 'react'
 const noop = () => {}
 const defaultOption = {
   mannual: false,
-  onSuccess: noop,
-  onError: noop
+  onSuccess: noop as SuccessHandler,
+  onError: noop as ErrorHandler
+}
+
+export interface SuccessHandler {
+  <T>(res: any):T;
+}
+
+export interface ErrorHandler {
+  (err: any): void;
+}
+
+export interface Option extends Partial<typeof defaultOption>{
+  onSuccess: SuccessHandler;
+  onError: ErrorHandler;
+}
+
+export interface AsyncResult<T> {
+  loading: boolean;
+  run: () => void;
+  result: T | undefined;
 }
 
 /**
  * @param {Function} action should return a Promise
- * @param {Object} option
- * @param {Array} deps dependecies
+ * @param {Object} customOption
  */
-const useAysnc = (action = noop, option = {}, deps = []) => {
-  option = Object.assign({}, defaultOption, option)
+const useAsync = <T>(
+  action: () => Promise<any>, 
+  customOption: object = {}
+): AsyncResult<T> => {
+  let option: Option = Object.assign({}, defaultOption, customOption)
 
-  const result = useRef({})
+  const result = useRef<T>()
   const [loading, setLoading] = useState(false)
 
   const run = useCallback(() => {
     setLoading(true)
-    const ret = action()
+    const ret: Promise<any> = action()
     if (ret.then) {
       ret.then(res => {
         result.current = option.onSuccess(res) || res
@@ -40,8 +61,8 @@ const useAysnc = (action = noop, option = {}, deps = []) => {
   return {
     loading,
     run,
-    result: result.current || {},
+    result: result.current,
   }
 }
 
-export default useAysnc
+export default useAsync

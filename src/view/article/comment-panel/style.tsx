@@ -15,7 +15,7 @@ const CommentPanelWrapper = styled.div`
   border-top: 1px solid #ddd;
 `
 
-export const SkeletonComment = (props) => {
+export const SkeletonComment = (props: { num?: number }) => {
   return (
     <>
       <ContentLoader backgroundColor={'#dadada'} style={{ width: '100%', height: '50px' }}>

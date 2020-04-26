@@ -12,22 +12,30 @@ import useInitPosition from 'hooks/useInitPosition'
 
 import ArticleWrapper, { Title, SkeletonMain } from './style'
 
-
+import { 
+  Article as ArticleType
+} from 'types'
 
 import 'github-markdown-css'
 import 'code-prettify/styles/sunburst.css'
 
-const Article = () => {
-  const { id } = useParams()
+interface TopicDetailResult {
+  data: ArticleType
+}
 
-  let info = useLocation().state || {}
+const Article: React.FC = () => {
+  const { id = '' } = useParams()
+
+  let info = useLocation().state as ArticleType
 
   useInitPosition(0, 0)
 
-  const { loading, result } = useAsync(() => sdk.getTopicDetail(id))
+  const { loading, result = { data: {} as ArticleType } } = useAsync<TopicDetailResult>(() => sdk.getTopicDetail(id))
   
   info = isEmpty(result) ? info : result.data
-  Promise.resolve().then(() => window.PR?.prettyPrint())
+
+  // window.PR 代码高亮，使用的外部js文件
+  Promise.resolve().then(() => (window as any).PR?.prettyPrint())
 
   return (
     <ArticleWrapper>
@@ -38,7 +46,7 @@ const Article = () => {
             <InfoBar value={ info }></InfoBar>
             <div 
               className='markdown-body' 
-              dangerouslySetInnerHTML={{__html: info.content}}
+              dangerouslySetInnerHTML={{__html: info.content || ''}}
             ></div>
           </>
           : <SkeletonMain />

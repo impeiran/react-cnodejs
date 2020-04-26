@@ -1,17 +1,21 @@
 import React from 'react'
 import styled, { keyframes } from 'styled-components'
 
-const rotate = keyframes`
-  from {
-    transform: rotate(0deg);
-  }
+interface LoadingProps {
+  size?: number;
+  text: string;
+}
 
-  to {
-    transform: rotate(360deg);
-  }
+interface WrapperProps {
+  size: number
+}
+
+const rotate = keyframes`
+  from { transform: rotate(0deg);}
+  to { transform: rotate(360deg);}
 `;
 
-const LoadingWrapper = styled.div`
+const LoadingWrapper = styled.div<WrapperProps>`
   margin: 10px auto;
   width: ${props => props.size}px;
   height: ${props => props.size}px;
@@ -26,7 +30,7 @@ const TextWrapper = styled.div`
   text-align: center;
 `
 
-const Loading = props => {
+const Loading: React.FC<LoadingProps> = (props: LoadingProps) => {
   return (
     <>
       <LoadingWrapper size={props.size || 30} />

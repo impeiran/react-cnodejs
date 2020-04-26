@@ -4,7 +4,15 @@ import InfoBarWrapper from './style'
 import Image from 'components/image'
 import { format } from 'timeago.js'
 
-const InfoBar = props => {
+import { 
+  Article as ArticleType
+} from 'types'
+
+interface IProps {
+  value: ArticleType
+}
+
+const InfoBar: React.FC<IProps> = (props: IProps) => {
   const history = useHistory()
 
   const {
@@ -13,7 +21,7 @@ const InfoBar = props => {
     create_at
   } = (props.value || {})
 
-  const visitUser = (e, name) => {
+  const visitUser = (e: React.MouseEvent, name: string) => {
     e.stopPropagation()
     history.push(`/user/${name}`)
   }
@@ -34,8 +42,5 @@ const InfoBar = props => {
   )
 }
 
-InfoBar.defaultProps = {
-  value: {}
-}
 
 export default React.memo(InfoBar)

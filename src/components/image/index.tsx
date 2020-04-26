@@ -1,8 +1,20 @@
 import React, { useState } from 'react'
 import ImageWrapper from './style'
-import PropTypes from 'prop-types'
 
-const Image = props => {
+const defaultProps = {
+  alt: '',
+  width: 50,
+  height: 50,
+  radius: 8,
+  onClick: (e: React.MouseEvent) => {}
+}
+
+export interface ImageProps extends Partial<typeof defaultProps>{
+  src: string;
+  style?: React.CSSProperties
+}
+
+const Image: React.FC<ImageProps> = (props: ImageProps) => {
   const { src, alt, width, height, radius, style = {}, onClick } = props
 
   const [status, setStatus] = useState('loading')
@@ -26,22 +38,6 @@ const Image = props => {
   )
 }
 
-Image.defaultProps = {
-  alt: '',
-  width: 50,
-  height: 50,
-  radius: 8,
-  onClick: () => {}
-}
-
-Image.propTypes = {
-  src: PropTypes.string.isRequired,
-  width: PropTypes.number,
-  height: PropTypes.number,
-  radius: PropTypes.oneOfType([
-    PropTypes.number,
-    PropTypes.string
-  ])
-}
+Image.defaultProps = defaultProps
 
 export default React.memo(Image)

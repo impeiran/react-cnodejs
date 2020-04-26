@@ -6,13 +6,20 @@ import styled from 'styled-components'
 // polyfill
 import 'intersection-observer'
 
+export interface Iprops {
+  loading: boolean;
+  completed: boolean;
+  children: React.ReactNode;
+  onLoad: () => void;
+}
+
 const TipWord = styled.div`
   margin: 10px auto;
   color: #333;
   text-align: center;
 `
 
-const ScrollList = props => {
+const ScrollList: React.FC<Iprops> = (props: Iprops) => {
   const { completed, onLoad, loading } = props
 
   const hanlder = useCallback(entries => {
@@ -22,14 +29,14 @@ const ScrollList = props => {
     }
   }, [completed, onLoad])
 
-  const observer = useRef(new IntersectionObserver(hanlder))
-  const bottomEl = useRef()
+  const observer: React.RefObject<IntersectionObserver> = useRef(new IntersectionObserver(hanlder))
+  const bottomEl: any = useRef<HTMLDivElement>()
 
-  useEffect(() => {    
-    observer.current.observe(bottomEl.current)
+  useEffect(() => {
+    observer.current && observer.current.observe(bottomEl.current)
 
     return () => {
-      observer.current.unobserve(bottomEl.current)
+      observer.current && observer.current.unobserve(bottomEl.current)
     }
   }, [])
 

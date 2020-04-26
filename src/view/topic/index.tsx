@@ -5,13 +5,14 @@ import ScrollList from 'components/scroll-list'
 import useLoadMore from 'hooks/useLoadMore'
 import sdk from 'service/cnode-sdk'
 import isEmpty from 'utils/isEmpty'
+import { Topic as TopicType } from 'types'
 
 const PAGE_SIZE = 20
 
 const Skeleton = createSkeleton(5)
 
 const Topic = () => {
-  const { tag } = useParams()
+  const { tag = '' } = useParams()
   const history = useHistory()
 
   const getTopicsByTab = useCallback(info => {
@@ -29,7 +30,7 @@ const Topic = () => {
   const hasList = useMemo(() => !isEmpty(list), [list])
 
   // 点击查看文章详情
-  const visitArticle = info => {
+  const visitArticle = (info: TopicType) => {
     history.push({
       pathname: `/article/${info.id}`,
       state: info
@@ -42,7 +43,7 @@ const Topic = () => {
         hasList && 
         <ScrollList loading={loading} completed={completed} onLoad={loadMore}>
           {
-            list.map(item => {
+            list.map((item: TopicType) => {
               return (
                 <Card key={item.id} data={item} onClick={() => visitArticle(item)} />
               )

@@ -49,7 +49,7 @@ export const Time = styled.div`
   padding-top: 30px;
 `
 
-const Skeleton = option => {
+const Skeleton = (option: any) => {
   return <ContentLoader backgroundColor={'#dadada'} style={{ width: '100%', height: '105px' }} {...option}>
     <rect rx="4" ry="4" width="44" height="25"></rect>
     <rect x="55" y="2.5" width="100%" height="20" ></rect>

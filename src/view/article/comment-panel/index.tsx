@@ -6,7 +6,14 @@ import {
   Total
 } from './style'
 
-const CommentPanel = props => {
+import { Comment as CommentType } from 'types'
+
+interface IProps {
+  value?: CommentType[];
+  articleAuthor: string;
+}
+
+const CommentPanel: React.FC<IProps> = (props: IProps) => {
   const { value, articleAuthor } = props
 
   return (
@@ -14,7 +21,7 @@ const CommentPanel = props => {
       <Total>共{value?.length || 0}条评论</Total>
       {
         value?.length 
-          ? value.map((item, index) => {
+          ? value.map((item: CommentType, index: number) => {
             return (
               <Comment 
                 key={item.id} 

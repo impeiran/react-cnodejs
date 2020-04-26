@@ -5,8 +5,15 @@ import Tag from 'components/tag'
 import { format } from 'timeago.js'
 import CardWrapper, { CardHead, CardBody, Info, Time } from './style'
 
-const Card = props => {
-  const { data, ...resProps } = props
+import { Topic as TopicType } from 'types'
+
+interface IProps {
+  data: TopicType;
+  onClick?: (e: React.MouseEvent) => void;
+}
+
+const Card: React.FC<IProps> = (props: IProps) => {
+  const { data, onClick } = props
   const history = useHistory()
 
   const genTagType = () => {
@@ -16,13 +23,13 @@ const Card = props => {
     return data.tab
   }
 
-  const visitUser = (e, name) => {
+  const visitUser = (e: React.MouseEvent, name: string) => {
     e.stopPropagation()
     history.push(`/user/${name}`)
   }
 
   return (
-    <CardWrapper {...resProps}>
+    <CardWrapper onClick={onClick}>
       <CardHead>
         <Tag type={genTagType()}></Tag>
         <h4>{ data.title }</h4>

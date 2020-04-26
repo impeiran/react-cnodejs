@@ -1,44 +1,9 @@
-import axios from 'axios'
+import Service, { SuccessFormat } from './base'
 
-const handleError = (err) => {
-  let msg = err.message || err.msg || ''
-  alert(`请求失败，请重新刷新页面尝试：${msg}`)
-}
-
-const handleResponse = (res, resolve) => {
-  res = res.data
-  if (res.hasOwnProperty('success')) {
-    if (res.success) {
-      const { success, ...rest } = res
-      resolve(rest)
-    } else {
-      handleError(res)
-    }
-  } else {
-    handleError(res)
-  }
-}
-
-class SDK {
-  constructor() {
-    this.$http = axios.create({
+class CnodeSDK extends Service {
+  constructor () {
+    super({
       baseURL: 'https://cnodejs.org/api/v1'
-    })
-  }
-
-  get (url, params) {
-    return new Promise((resolve, reject) => {
-      this.$http.get(url, { params })
-        .then(res => handleResponse(res, resolve))
-        .catch(handleError)
-    })
-  }
-
-  post (url, data) {
-    return new Promise((resolve, reject) => {
-      this.$http.post(url, data)
-        .then(res => handleResponse(res, resolve))
-        .catch(handleError)
     })
   }
 
@@ -48,10 +13,10 @@ class SDK {
    * @param {Number} page 页码
    * @param {Number} limit 每页数量
    */
-  getTopicsByTab (tab, page = 1, limit = 20) {
+  getTopicsByTab (tab: string, page: number = 1, limit: number = 20): Promise<SuccessFormat> {
     return this.get('/topics', {
-      page: parseInt(page),
-      limit: parseInt(limit),
+      page: page,
+      limit: limit,
       tab
     })
   }
@@ -60,7 +25,7 @@ class SDK {
    * 获取话题的文章详情
    * @param {String} topicId 
    */
-  getTopicDetail (topicId = '') {
+  getTopicDetail (topicId: string | number): Promise<SuccessFormat> {
     return this.get(`/topic/${topicId}`)
   }
   
@@ -68,7 +33,7 @@ class SDK {
    * 获取用户详情页数据
    * @param {String} username 
    */
-  getUserDetail (username = '') {
+  getUserDetail (username: string): Promise<SuccessFormat> {
     return this.get(`/user/${username}`)
   }
 
@@ -76,9 +41,9 @@ class SDK {
    * 获取用户收藏的文章
    * @param {String}} username 
    */
-  getUserCollection (username = '') {
+  getUserCollection (username: string): Promise<SuccessFormat> {
     return this.get(`/topic_collect/${username}`)
   }
 }
 
-export default new SDK()
+export default new CnodeSDK()

@@ -4,10 +4,10 @@ import { useParams, Link } from 'react-router-dom'
 import Image from 'components/image'
 import sdk from 'service/cnode-sdk'
 import isEmpty from 'utils/isEmpty'
-import useAysnc from 'hooks/useAsync'
+import useAsync from 'hooks/useAsync'
 import useInitPosition from 'hooks/useInitPosition'
 
-
+import { ArticleLink } from 'types'
 
 import { 
   InfoPanel,
@@ -19,8 +19,30 @@ import {
 } from './style'
 import { format } from 'timeago.js'
 
-const Info = React.memo(props => {
-  const info = props.value || {}
+interface UserDetail {
+  avatar_url: string;
+  create_at: string;
+  githubUsername: string;
+  loginname: string;
+  recent_replies: ArticleLink[];
+  recent_topics: ArticleLink[];
+  score: number;
+}
+
+interface InfoProps {
+  loginname?: string;
+  avatar_url?: string;
+  score?: number;
+  create_at: string;
+}
+
+interface ListProps {
+  title: string;
+  value: ArticleLink[];
+}
+
+const Info: React.FC<{ value: InfoProps | undefined }> = React.memo(props => {
+  const info = props.value || ({} as InfoProps)
   return (
     !isEmpty(info) 
       ? <InfoPanel>
@@ -40,7 +62,7 @@ const Info = React.memo(props => {
   )
 })
 
-const List = React.memo(props => {
+const List: React.FC<ListProps> = React.memo(props => {
   const { title, value } = props
   return (
     !isEmpty(value)
@@ -65,27 +87,28 @@ const List = React.memo(props => {
   )
 })
 
-const User = props => {
+const User: React.FC<{}> = props => {
   const { name = '' } = useParams()
 
   let {
-    result: info
-  } = useAysnc(() => sdk.getUserDetail(name))
+    result: infoResult
+  } = useAsync<{ data: UserDetail }>(() => sdk.getUserDetail(name))
 
   let {
-    result: collection 
-  } = useAysnc(() => sdk.getUserCollection(name))
+    result: collectionResult
+  } = useAsync<{ data: ArticleLink[] }>(() => sdk.getUserCollection(name))
 
   useInitPosition(0, 0)
 
-  info = info.data
+  const info = infoResult ? infoResult.data : ({} as UserDetail)
+  const collection = collectionResult ? collectionResult.data : ([] as ArticleLink[])
 
   return (
     <section>
       <Info value={info} />
       <List title='最近发布话题' value={info?.recent_topics} />
       <List title='最近回复' value={info?.recent_replies} />
-      <List title='收藏话题' value={collection?.data} />
+      <List title='收藏话题' value={collection} />
     </section>
   )
 }

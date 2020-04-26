@@ -2,7 +2,16 @@ import React from 'react'
 import { NavLink } from 'react-router-dom'
 import TabbarWrapper, { TabbarItem } from './style'
 
-const Tabbar = props => {
+export interface Tabber {
+  name: string;
+  route: string;
+}
+
+interface Iprops {
+  value: Array<Tabber>;
+}
+
+const Tabbar: React.FC<Iprops> = (props: Iprops) => {
   return (
     <TabbarWrapper>
       {
@@ -16,10 +25,6 @@ const Tabbar = props => {
       }
     </TabbarWrapper>
   )
-}
-
-Tabbar.defaultProps = {
-  value: []
 }
 
 export default React.memo(Tabbar)
