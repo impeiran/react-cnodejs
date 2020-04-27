@@ -26,13 +26,13 @@ interface TopicDetailResult {
 const Article: React.FC = () => {
   const { id = '' } = useParams()
 
-  let info = useLocation().state as ArticleType
+  let info = (useLocation().state) as ArticleType
 
   useInitPosition(0, 0)
 
   const { loading, result = { data: {} as ArticleType } } = useAsync<TopicDetailResult>(() => sdk.getTopicDetail(id))
   
-  info = isEmpty(result) ? info : result.data
+  info = isEmpty(result.data) || loading ? info : result.data
 
   // window.PR 代码高亮，使用的外部js文件
   Promise.resolve().then(() => (window as any).PR?.prettyPrint())
