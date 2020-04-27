@@ -17,7 +17,7 @@ import {
 } from 'types'
 
 import 'github-markdown-css'
-import 'code-prettify/styles/sunburst.css'
+import './code-prettify-sunburst.css'
 
 interface TopicDetailResult {
   data: ArticleType
