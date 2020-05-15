@@ -22,6 +22,7 @@ const TipWord = styled.div`
 const ScrollList: React.FC<IProps> = (props: IProps) => {
   const { completed, onLoad, loading } = props
 
+  // 触发命中观察的回调
   const hanlder = useCallback(entries => {
     if (completed) return
     if (entries[0].intersectionRatio > 0) {

@@ -1,3 +1,4 @@
+import isEmpty from 'utils/isEmpty'
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useRef, useCallback } from 'react'
 import useAsync from './useAsync'
@@ -8,13 +9,9 @@ const defaultOption = {
 }
 
 interface Option extends Partial<typeof defaultOption> {
+  defaultResult?: { list: Array<any> };
   formatResult?<T>(result: any): { list: Array<T> };
   isNoMore?(result: any): boolean;
-}
-
-interface ActionOption {
-  page: number;
-  pageSize: number;
 }
 
 /**
@@ -30,11 +27,14 @@ export default (
 
   option = Object.assign({}, defaultOption, option || {})
 
+  const defaultList = option.defaultResult?.list || []
+
   const infoRef = useRef({
     completed: false,
-    page: option.initPage || 1,
-    list: []
+    page: 1,
+    list: [] as any[]
   })
+
 
   const actionHandler = useCallback(() => {
     return action({ page: infoRef.current.page, pageSize: option.initPageSize })
@@ -47,7 +47,10 @@ export default (
       const currentPage = infoRef.current.page
 
       const resultList = option.formatResult
-        ? option.formatResult(res).list
+        ? option.formatResult({
+            response: res, 
+            page: currentPage
+          }).list
         : res.list
 
       infoRef.current.list = currentPage !== 1
@@ -69,10 +72,10 @@ export default (
   useEffect(() => {
     infoRef.current = {
       page: 1,
-      list: [],
+      list: defaultList || [],
       completed: false
     }
-    run()
+    isEmpty(defaultList) && run()
   }, [...deps])
 
   return {

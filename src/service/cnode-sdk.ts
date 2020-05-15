@@ -3,7 +3,8 @@ import Service, { SuccessFormat } from './base'
 class CnodeSDK extends Service {
   constructor () {
     super({
-      baseURL: 'https://cnodejs.org/api/v1'
+      baseURL: 'https://cnodejs.org/api/v1',
+      timeout: 8000
     })
   }
 

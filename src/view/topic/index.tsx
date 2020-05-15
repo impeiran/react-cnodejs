@@ -6,6 +6,7 @@ import useLoadMore from 'hooks/useLoadMore'
 import sdk from 'service/cnode-sdk'
 import isEmpty from 'utils/isEmpty'
 import { Topic as TopicType } from 'types'
+import useCache from 'hooks/useCache'
 
 const PAGE_SIZE = 20
 
@@ -15,17 +16,30 @@ const Topic = () => {
   const { tag = '' } = useParams()
   const history = useHistory()
 
+  const [cachePage, setCachePage] = useCache(tag + 'Page', 1, 45000)
+  const [cacheList, setCacheList] = useCache(tag + 'List', [], 45000)
+
+  console.log(cacheList)
+
   const getTopicsByTab = useCallback(info => {
     return sdk.getTopicsByTab(tag, info.page || 1, PAGE_SIZE)
   }, [tag])
 
-  const { list, loading, loadMore, completed } = useLoadMore(getTopicsByTab, {
+  // 无限滚动分页加载数据
+  let { list, page, loading, loadMore, completed } = useLoadMore(getTopicsByTab, {
+    initPage: cachePage,
     initPageSize: 20,
-    formatResult: ({ data }) => { return { list: data } },
+    defaultResult: { list: cacheList },
+    formatResult: ({ response: { data = [] } = {} }) => {
+      return { list: data } 
+    },
     isNoMore: ({ data }) => {
       return data && data.length > PAGE_SIZE
     }
   }, [tag])
+
+  setCachePage(page)
+  setCacheList(list)
 
   const hasList = useMemo(() => !isEmpty(list), [list])
 
