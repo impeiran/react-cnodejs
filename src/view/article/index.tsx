@@ -35,7 +35,7 @@ const Article: React.FC = () => {
   info = isEmpty(result.data) || loading ? info : result.data
 
   // window.PR 代码高亮，使用的外部js文件
-  Promise.resolve().then(() => (window as any).PR?.prettyPrint())
+  Promise.resolve().then(() => window.PR?.prettyPrint())
 
   return (
     <ArticleWrapper>
